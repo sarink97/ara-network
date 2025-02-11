@@ -3,7 +3,7 @@ import About from '@/components/About';
 import Services from '@/components/Services';
 import Features from '@/components/Features';
 import CTA from '@/components/CTA';
-import BlogPreview from '@/components/BlogPreview';
+//import BlogPreview from '@/components/BlogPreview';
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <Services />
       <Features />
       <CTA />
-      <BlogPreview />
+      {/* <BlogPreview /> */}
     </main>
   );
 }

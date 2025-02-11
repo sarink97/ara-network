@@ -1,160 +1,469 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
-import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
-
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import CenterLayout from './CenterLayout';
-
-const slides = [
-  {
-    title: "Information Consultancies & Installations",
-    subtitle: "WELCOME TO IC&I",
-    description: "Our customized ICT solutions are designed to drive client growth, adapt to their evolving needs, and ensure success in a constantly changing world.",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80",
-    accent: "from-[#002060] to-[#B5C6F4]",
-    buttons: {
-      primary: { text: "Learn More", href: "/about" },
-      secondary: { text: "Contact Us", href: "/contact" }
-    }
-  },
-  {
-    title: "Consultancy Services for SMEs",
-    subtitle: "ACHIEVE YOUR BUSINESS GOALS",
-    description: "Our consultancy services, ranging from market research to project management, are tailored to enhance your business strategy.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
-    accent: "from-[#002060] to-[#B5C6F4]",
-    buttons: {
-      primary: { text: "Get a Consultation", href: "/contact" },
-      secondary: { text: "What We Offer", href: "/services" }
-    }
-  },
-  {
-    title: "Installation, Commissioning, and Beyond",
-    subtitle: "SUCCESS ALL THE WAY",
-    description: "Our solutions go beyond implementation, offering strong after-sales support to ensure maximum performance.",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80",
-    accent: "from-[#002060] to-[#B5C6F4]",
-    buttons: {
-      primary: { text: "What We Offer", href: "/services" },
-      secondary: { text: "Contact Us", href: "/contact" }
-    }
-  }
-];
+import { motion, useAnimationControls } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Hero() {
-  const swiperRef = useRef(null);
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    const sequence = async () => {
+      await controls.start({
+        scale: [1, 1.02, 0.98, 1],
+        rotate: [0, 1, -1, 0],
+        transition: { duration: 2, ease: "easeInOut" }
+      });
+    };
+    sequence();
+  }, [controls]);
 
   return (
+    <div className="relative min-h-screen bg-[#0B1B33] overflow-hidden">
+      {/* Background Grid */}
+      <motion.div 
+        className="absolute inset-0" 
+        style={{
+          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), 
+                           linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+        animate={{
+          backgroundPosition: ["0px 0px", "50px 50px"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ 
+            duration: 8,
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="absolute inset-0 bg-gradient-to-r from-[#4C9EFF]/10 via-blue-700/10 to-[#4C9EFF]/10"
+        />
+      </motion.div>
 
-        <div className="relative h-[120vh]">
-        <Swiper
-          ref={swiperRef}
-          effect="fade"
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
+      {/* Animated Background Circles */}
+      {Array.from({ length: 5 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full mix-blend-screen filter blur-xl"
+          style={{
+            background: `radial-gradient(circle, rgba(76,158,255,0.15) 0%, rgba(76,158,255,0) 70%)`,
+            width: `${Math.random() * 600 + 400}px`,
+            height: `${Math.random() * 600 + 400}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
           }}
-          pagination={{
-            clickable: true,
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+            filter: ["blur(40px)", "blur(60px)", "blur(40px)"],
+            x: [0, Math.random() * 50 - 25, 0],
+            y: [0, Math.random() * 50 - 25, 0],
+            rotate: [0, Math.random() * 180, 0],
           }}
-          navigation={{
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next',
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 2,
           }}
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
-          className="h-full w-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <div className="relative h-full w-full">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center bg-fixed transform hover:scale-105 transition-transform duration-[2s]"
-                  style={{ backgroundImage: `url(${slide.image})` }}
+        />
+      ))}
+
+      {/* Particle Effect */}
+      {Array.from({ length: 30 }).map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          className="absolute w-1 h-1 bg-[#4C9EFF]/30 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -Math.random() * 200 - 100],
+            x: [0, (Math.random() - 0.5) * 100],
+            opacity: [0, 0.8, 0],
+            scale: [0, Math.random() * 2, 0],
+            rotate: [0, Math.random() * 360],
+          }}
+          transition={{
+            duration: Math.random() * 3 + 2,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: Math.random() * 2,
+          }}
+        />
+      ))}
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 h-screen flex items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
+          {/* Left Column - Text Content */}
+          <div className="space-y-6">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block text-[#4C9EFF] text-sm uppercase tracking-wider
+                px-4 py-2 rounded-full border border-[#4C9EFF]/20 backdrop-blur-sm"
+            >
+              WELCOME TO ARA NETWORKS
+            </motion.span>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-2"
+            >
+              <motion.h1 
+                className="text-6xl font-bold text-white"
+                animate={{
+                  textShadow: [
+                    "0 0 0px rgba(255,255,255,0)",
+                    "0 0 10px rgba(255,255,255,0.3)",
+                    "0 0 0px rgba(255,255,255,0)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                Secure Your
+              </motion.h1>
+              <motion.h1 
+                className="text-6xl font-bold text-[#4C9EFF]"
+                animate={{
+                  textShadow: [
+                    "0 0 0px rgba(76,158,255,0)",
+                    "0 0 20px rgba(76,158,255,0.5)",
+                    "0 0 0px rgba(76,158,255,0)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+              >
+                Digital Future
+              </motion.h1>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-lg text-gray-400 max-w-xl leading-relaxed
+                backdrop-blur-sm bg-white/5 p-4 rounded-lg"
+            >
+              Experience unparalleled security and performance with our
+              cutting-edge solutions. Protect your business with enterprise-
+              grade technology trusted by industry leaders.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex gap-4 pt-4"
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/products"
+                  className="group relative inline-flex items-center px-6 py-3 text-base font-medium rounded-full
+                    bg-[#4C9EFF] text-white overflow-hidden"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-90`} />
-                  <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20" />
-                </div>
-
-                <div className="relative h-full flex items-center pt-15">
-                  <div className="w-full lg:w-[1280px] mx-auto px-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      className="max-w-3xl"
+                  <motion.span className="relative z-10 flex items-center">
+                    Explore Products
+                    <motion.span
+                      animate={{
+                        x: [0, 5, 0],
+                        y: [0, -2, 0],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
                     >
-                      <motion.span 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="inline-block text-lg font-medium mb-4 text-white/90 backdrop-blur-sm bg-white/10 px-4 py-1 rounded-full mt-8"
-                      >
-                        {slide.subtitle}
-                      </motion.span>
-                      <motion.h1 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="text-6xl md:text-7xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80"
-                      >
-                        {slide.title}
-                      </motion.h1>
-                      <motion.p 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="text-xl mb-8 text-white/80 leading-relaxed max-w-2xl backdrop-blur-sm bg-black/10 p-4 rounded-lg"
-                      >
-                        {slide.description}
-                      </motion.p>
-                      <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        className="flex flex-wrap gap-4"
-                      >
-                        <Link
-                          href={slide.buttons.primary.href}
-                          className="group relative bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 
-                            text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105
-                            hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] overflow-hidden"
-                        >
-                          <span className="relative z-10">{slide.buttons.primary.text}</span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 
-                            translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        </Link>
-                        <Link
-                          href={slide.buttons.secondary.href}
-                          className="group relative bg-transparent border border-white/30 hover:border-white/50
-                            text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105"
-                        >
-                          <span className="relative z-10">{slide.buttons.secondary.text}</span>
-                          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 
-                            translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        </Link>
-                      </motion.div>
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </motion.span>
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
+                    animate={{
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </Link>
+              </motion.div>
 
-          <div className="swiper-button-prev !text-white hover:text-secondary transition-colors">
-            <ChevronLeft className="w-8 h-8" />
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/contact"
+                  className="relative inline-flex items-center px-6 py-3 text-base font-medium rounded-full
+                    text-[#4C9EFF] border border-[#4C9EFF]/30 overflow-hidden group"
+                >
+                  <motion.span className="relative z-10">
+                    Contact Us
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-[#4C9EFF]/0 group-hover:bg-[#4C9EFF]/10
+                      transition-colors duration-300"
+                  />
+                </Link>
+              </motion.div>
+            </motion.div>
           </div>
-          <div className="swiper-button-next !text-white hover:text-secondary transition-colors">
-            <ChevronRight className="w-8 h-8" />
+
+          {/* Right Column - Visual Element */}
+          <div className="relative hidden lg:block">
+            <div className="relative w-full aspect-square">
+              {/* Circular Elements */}
+              <motion.div
+                className="absolute inset-0"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              >
+                <motion.div 
+                  className="absolute inset-0 border border-[#4C9EFF]/20 rounded-full"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.2, 0.4, 0.2],
+                    rotate: [0, -360],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div 
+                  className="absolute inset-[15%] border border-[#4C9EFF]/20 rounded-full"
+                  animate={{
+                    scale: [1.05, 1, 1.05],
+                    opacity: [0.3, 0.5, 0.3],
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div 
+                  className="absolute inset-[30%] border border-[#4C9EFF]/20 rounded-full"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.4, 0.6, 0.4],
+                    rotate: [0, -360],
+                  }}
+                  transition={{
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Floating Dots */}
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 bg-[#4C9EFF] rounded-full"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 30}deg) translateX(160px)`,
+                    }}
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.3, 0.7, 0.3],
+                      filter: ["blur(0px)", "blur(1px)", "blur(0px)"],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      delay: i * 0.2,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </motion.div>
+
+              {/* Center Circle */}
+              <motion.div 
+                className="absolute inset-[25%] rounded-full 
+                  flex items-center justify-center overflow-hidden
+                  bg-gradient-to-br from-[#4C9EFF] to-[#3178F6]"
+                animate={{
+                  scale: [1, 1.03, 1],
+                  background: [
+                    "linear-gradient(135deg, #4C9EFF 0%, #3178F6 100%)",
+                    "linear-gradient(225deg, #4C9EFF 0%, #3178F6 100%)",
+                    "linear-gradient(315deg, #4C9EFF 0%, #3178F6 100%)",
+                    "linear-gradient(45deg, #4C9EFF 0%, #3178F6 100%)",
+                  ],
+                }}
+                transition={{
+                  scale: {
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                  background: {
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  },
+                }}
+                style={{
+                  boxShadow: "0 0 50px rgba(76,158,255,0.3), inset 0 0 30px rgba(255,255,255,0.1)"
+                }}
+              >
+                {/* Animated Rings */}
+                <div className="absolute inset-0">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <motion.div
+                      key={`ring-${i}`}
+                      className="absolute inset-0 rounded-full border-2 border-white/10"
+                      animate={{
+                        rotate: [0, 360],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        rotate: {
+                          duration: 10 + i * 5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        },
+                        scale: {
+                          duration: 4 + i * 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        },
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Animated Particles */}
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <motion.div
+                    key={`particle-${i}`}
+                    className="absolute w-1 h-8 bg-white/20 rounded-full"
+                    style={{
+                      transformOrigin: "center",
+                      rotate: `${i * 45}deg`,
+                    }}
+                    animate={{
+                      opacity: [0.2, 0.5, 0.2],
+                      height: ["2rem", "3rem", "2rem"],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
+                    }}
+                  />
+                ))}
+
+                {/* Multiple Gradient Overlays */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
+                  animate={{
+                    x: ['-200%', '200%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/10 to-white/0"
+                  animate={{
+                    y: ['-200%', '200%'],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* ARA Text with Letter Animation */}
+                <div className="relative z-10 flex items-center justify-center gap-1">
+                  {['A', 'R', 'A'].map((letter, i) => (
+                    <motion.span
+                      key={letter + i}
+                      className="text-6xl font-bold text-white"
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        opacity: [0.8, 1, 0.8],
+                        textShadow: [
+                          "0 0 20px rgba(255,255,255,0.3)",
+                          "0 0 30px rgba(255,255,255,0.6)",
+                          "0 0 20px rgba(255,255,255,0.3)",
+                        ],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.2,
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </div>
+
+                {/* Glowing Orb Effect */}
+                <motion.div
+                  className="absolute inset-0 bg-white/5 rounded-full blur-md"
+                  animate={{
+                    scale: [0.8, 1.1, 0.8],
+                    opacity: [0.3, 0.5, 0.3],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </motion.div>
+            </div>
           </div>
-        </Swiper>
+        </div>
       </div>
+    </div>
   );
 }

@@ -1,174 +1,246 @@
 "use client";
 
+import React from 'react';
 import { motion } from "framer-motion";
-import { Network, Database, Scale, Layers, Server, Cloud } from "lucide-react";
+import { HardDrive, Network, Scale, Shield, Zap, Server, Activity, Users, PlayCircle, Cpu, Gauge, Database } from "lucide-react";
+
+const performanceMetrics = [
+  { value: "10TB+", label: "Storage Capacity", icon: HardDrive },
+  { value: "1M+", label: "Concurrent Users", icon: Users },
+  { value: "100%", label: "Linear Scaling", icon: Scale },
+  { value: "24/7", label: "High Availability", icon: Activity }
+];
 
 const features = [
   {
-    icon: Network,
-    title: "Distributed Storage",
-    description: "Support for tens of terabytes in a single system, expandable via external storage (NAS and DAS) for optimized content delivery.",
-    gradient: "from-blue-600 via-blue-700 to-blue-800"
+    title: "Massive Storage Capacity",
+    description: "Supports tens of terabytes in a single system, expandable via external storage (NAS and DAS). Optimized for handling large content efficiently.",
+    benefits: [
+      "Tens of terabytes in single system",
+      "External storage support (NAS/DAS)",
+      "Optimized for video content",
+      "Flexible storage configuration"
+    ],
+    icon: HardDrive,
+    gradient: "from-[#0B1B33] via-[#1E3A8A] to-[#3785CC]"
   },
   {
+    title: "High Concurrency Support",
+    description: "Handles millions of simultaneous connections with built-in protection against various cyber threats and attacks.",
+    benefits: [
+      "Millions of concurrent connections",
+      "Built-in connection pool buffer",
+      "SYN attack protection",
+      "DoS attack prevention"
+    ],
+    icon: Users,
+    gradient: "from-[#1E3A8A] via-[#3785CC] to-[#60A5FA]"
+  },
+  {
+    title: "Linear Performance Growth",
+    description: "Hardware-independent design ensures performance scales linearly with hardware upgrades, providing future-proof scalability.",
+    benefits: [
+      "Proportional performance scaling",
+      "Hardware-independent design",
+      "Flexible upgrade path",
+      "Future-proof architecture"
+    ],
     icon: Scale,
-    title: "Load Balancing",
-    description: "Intelligent traffic distribution across multiple cache servers ensures optimal resource utilization and high availability.",
-    gradient: "from-blue-500 via-blue-600 to-blue-700"
-  },
-  {
-    icon: Server,
-    title: "Cluster Management",
-    description: "Seamless monitoring and management for clustered servers, ensuring smooth operations with reduced administrative overhead.",
-    gradient: "from-blue-400 via-blue-500 to-blue-600"
-  },
-  {
-    icon: Cloud,
-    title: "Cloud Integration",
-    description: "Easy integration with cloud storage solutions for unlimited scalability and flexible deployment options.",
-    gradient: "from-blue-300 via-blue-400 to-blue-500"
+    gradient: "from-[#3785CC] to-[#60A5FA]"
   }
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
+const highlights = [
+  {
+    title: "Linear Performance Scaling",
+    description: "Performance increases proportionally with hardware upgrades, offering seamless scalability for growing demands.",
+    icon: Gauge,
+    gradient: "from-blue-600 to-blue-400"
   },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { 
-      type: "spring",
-      stiffness: 100,
-      damping: 10,
-      duration: 0.5 
-    },
+  {
+    title: "High Stability",
+    description: "Robust architecture designed to handle heavy traffic loads while maintaining strong security measures.",
+    icon: Shield,
+    gradient: "from-indigo-600 to-blue-500"
   },
-};
+  {
+    title: "Efficient Content Delivery",
+    description: "Optimized for large-scale data transmission, perfect for video and bandwidth-intensive applications.",
+    icon: PlayCircle,
+    gradient: "from-blue-500 to-cyan-400"
+  }
+];
 
 export default function ScalabilityPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#111240] via-[#1a1c4d] to-[#3785CC]">
+      <div className="relative bg-gradient-to-br from-[#0B1B33] via-[#1E3A8A] to-[#3785CC] pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/10 to-blue-500/10 animate-pulse"></div>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),transparent)]"></div>
+          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-30 mix-blend-soft-light"></div>
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: 'radial-gradient(circle at 50% 120%, rgba(55, 133, 204, 0.3), transparent)'
+          }}></div>
         </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-24">
+
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#3785CC]/20 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#1E3A8A]/20 rounded-full filter blur-3xl animate-pulse delay-700"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <h1 className="text-4xl font-bold text-white mb-6 tracking-tight">
-                Unlimited
-                <span className="bg-gradient-to-r from-blue-400 to-blue-300 text-transparent bg-clip-text ml-2">
-                  Scalability
-                </span>
-              </h1>
-            </motion.div>
-            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-gray-200 max-w-3xl mx-auto font-light"
+              transition={{ duration: 0.8 }}
+              className="mb-8"
             >
-              Scale your caching infrastructure effortlessly with JAGUAR5000's advanced distributed architecture
-            </motion.p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                JAGUAR5000
+                <span className="block text-2xl md:text-3xl mt-2 bg-gradient-to-r from-[#60A5FA] to-[#93C5FD] text-transparent bg-clip-text">
+                  Industry-Leading Capacity
+                </span>
+              </h1>
+              <p className="text-lg text-blue-100 max-w-2xl mx-auto leading-relaxed mt-4">
+                Experience unmatched scalability and performance with our advanced caching solution
+              </p>
+            </motion.div>
+
+            {/* Quick Stats */}
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+              {performanceMetrics.map((metric, index) => (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  className="bg-white/10 backdrop-blur-lg rounded-xl p-4 border border-white/20"
+                >
+                  <metric.icon className="w-6 h-6 text-blue-300 mx-auto mb-3" />
+                  <div className="text-xl font-bold text-white mb-1">{metric.value}</div>
+                  <div className="text-sm text-blue-200">{metric.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Diagonal Border */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-white transform -skew-y-2 origin-bottom-right"></div>
+      </div>
+
+      {/* Introduction Section */}
+      <div className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-bold bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] bg-clip-text text-transparent mb-8">
+                Unrivaled Capacity and Flexibility
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                The JAGUAR5000 sets new standards in caching performance with its hardware-independent design and flexible storage configuration. 
+                Experience linear performance growth with hardware upgrades and handle millions of concurrent connections with ease.
+              </p>
+            </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-24">
-        {/* Overview Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto mb-24 text-center"
-        >
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent mb-8">
-            Enterprise-Grade Scalability
-          </h2>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            JAGUAR5000's distributed architecture allows seamless scaling from single servers to large clusters,
-            supporting growing traffic demands while maintaining optimal performance and reliability.
-          </p>
-        </motion.div>
+      {/* Key Features Section */}
+      <div className="bg-gray-50 py-16 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute -top-40 -right-32 w-96 h-96 bg-blue-50 rounded-full filter blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] bg-clip-text text-transparent">
+              Advanced Features
+            </h2>
+          </motion.div>
 
-        {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              variants={itemVariants}
-              className="group relative"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white rounded-2xl transform rotate-1 scale-[1.02] opacity-50 group-hover:rotate-2 transition-transform duration-300"></div>
-              <div className="relative rounded-2xl bg-white backdrop-blur-sm border border-gray-100 overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:border-blue-100 p-8">
-                <div className={`p-4 rounded-xl bg-gradient-to-r ${feature.gradient} transform group-hover:scale-110 transition-transform duration-300 mb-6 w-16 h-16 flex items-center justify-center shadow-lg`}>
-                  <feature.icon className="w-8 h-8 text-white" />
+          <div className="grid lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              >
+                <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Architecture Diagram */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mt-24 p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Distributed Architecture
-          </h3>
-          <div className="aspect-video bg-white rounded-xl p-8 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-blue-500/5"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent)]"></div>
-            <div className="relative h-full flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-8 w-full max-w-3xl">
-                <div className="flex flex-col items-center space-y-4">
-                  <Server className="w-12 h-12 text-blue-600" />
-                  <div className="text-sm font-medium text-gray-600">Cache Server 1</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600 mb-4 text-sm">{feature.description}</p>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-gray-900 text-sm">Key Benefits:</h4>
+                  <ul className="space-y-2">
+                    {feature.benefits.map((benefit, i) => (
+                      <li key={i} className="flex items-start group/item">
+                        <div className="w-6 h-6 rounded-md bg-blue-50 flex items-center justify-center mr-2 group-hover/item:bg-blue-100 transition-colors duration-200">
+                          <Zap className="w-3 h-3 text-blue-600" />
+                        </div>
+                        <span className="text-gray-600 text-sm flex-1">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="flex flex-col items-center space-y-4">
-                  <Server className="w-12 h-12 text-blue-500" />
-                  <div className="text-sm font-medium text-gray-600">Cache Server 2</div>
-                </div>
-                <div className="flex flex-col items-center space-y-4">
-                  <Server className="w-12 h-12 text-blue-400" />
-                  <div className="text-sm font-medium text-gray-600">Cache Server 3</div>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
+        </div>
+      </div>
+
+      {/* Key Benefits Section */}
+      <div className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] bg-clip-text text-transparent mb-4">
+              Key Benefits
+            </h2>
+            <p className="text-gray-600">
+              Discover how JAGUAR5000's scalability transforms your infrastructure
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {highlights.map((highlight, index) => (
+              <motion.div
+                key={highlight.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-5 transition-opacity duration-300"
+                     style={{ backgroundImage: `linear-gradient(to right, ${highlight.gradient})` }}></div>
+                <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${highlight.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <highlight.icon className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{highlight.title}</h3>
+                <p className="text-gray-600 text-sm">{highlight.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

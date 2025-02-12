@@ -122,7 +122,7 @@ export default function ProductPage() {
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-white transform -skew-y-2 origin-bottom-right"></div>
       </div>
 
-      {/* Stats Section with Cards */}
+      {/* Stats Section */}
       <div className="bg-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -147,43 +147,120 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="bg-gray-50 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl font-bold bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] bg-clip-text text-transparent mb-4"
-            >
-              Advanced Features
-            </motion.h2>
-            <p className="text-xl text-gray-600">
-              Discover what makes JAGUAR5000 the leading choice for network optimization
-            </p>
+      {/* Main Content Section */}
+      <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative">
+          {/* Background Effects */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-40 -right-32 w-96 h-96 bg-blue-50/50 rounded-full filter blur-3xl"></div>
+            <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-blue-100/30 rounded-full filter blur-3xl"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sections.map((section, index) => (
+          {/* Content */}
+          <div className="relative">
+            {/* Image Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-16"
+            >
+              <div className="relative group max-w-4xl mx-auto">
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <Image
+                  src="/jaguar5000.webp"
+                  alt="JAGUAR5000 Device"
+                  width={800}
+                  height={533}
+                  className="relative rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] w-full"
+                />
+              </div>
+            </motion.div>
+
+            {/* Text Content */}
+            <div className="max-w-4xl mx-auto">
               <motion.div
-                key={section.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                transition={{ duration: 0.6 }}
               >
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${section.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <section.icon className="w-8 h-8 text-white" />
+                <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent text-center">
+                  JAGUAR5000: The Versatile Proxy Cache Solution
+                </h2>
+                <p className="text-gray-700 mb-12 text-lg leading-relaxed text-center">
+                  The JAGUAR5000 is a powerful and versatile proxy cache system designed to deliver exceptional performance and versatility. It is the ideal choice for:
+                </p>
+
+                {/* Features Grid */}
+                <div className="grid md:grid-cols-3 gap-6 mb-12">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 text-center mb-2">ISPs</h3>
+                    <p className="text-gray-600 text-center">Enhancing Quality of Experience (QoE) and achieving significant bandwidth savings.</p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 text-center mb-2">CDN Providers</h3>
+                    <p className="text-gray-600 text-center">Leveraging it as a high-performance cache server to optimize content delivery.</p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 text-center mb-2">Enterprises</h3>
+                    <p className="text-gray-600 text-center">Utilizing it as a secure and reliable proxy for enhanced network protection.</p>
+                  </motion.div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{section.title}</h3>
-                <p className="text-gray-600 mb-6">{section.description}</p>
-                <Link href={section.link} className="inline-flex items-center text-[#1E3A8A] font-medium group/link">
-                  Learn More
-                  <ArrowRight className="ml-2 w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
-                </Link>
               </motion.div>
-            ))}
+            </div>
           </div>
+        </div>
+
+        {/* Product Sections */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {sections.map((section, index) => (
+            <motion.div
+              key={section.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${section.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <section.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">{section.title}</h3>
+              <p className="text-gray-600 mb-6">{section.description}</p>
+              <Link
+                href={section.link}
+                className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Learn more
+                <ArrowRight className="ml-1 w-4 h-4" />
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

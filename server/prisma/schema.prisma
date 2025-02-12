@@ -93,12 +93,40 @@ model Feature {
   @@index([serviceId])
 }
 
-model About {
-  id          Int       @id @default(autoincrement())
-  title       String    @db.VarChar(255)
-  subtitle    String    @db.VarChar(255)
-  description String    @db.Text
-  mission     String    @db.Text
-  vision      String    @db.Text
-  img         String?   @db.VarChar(255)
+model Partner {
+  id                Int      @id @default(autoincrement())
+  name             String
+  email            String   @unique
+  phone            String
+  hearAboutUs      String
+  companyName      String
+  addressLine1     String
+  addressLine2     String?
+  city             String
+  state            String
+  postalCode       String
+  country          String
+  website          String?
+  interestedProducts Json
+  message          String?
+  status           String   @default("PENDING")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Seller {
+  id        Int      @id @default(autoincrement())
+  name      String
+  country   String
+  email     String?
+  address   String?
+  company   String?
+  phones    Phone[]  @relation("SellerPhones")
+}
+
+model Phone {
+  id        Int    @id @default(autoincrement())
+  number    String
+  sellerId  Int
+  seller    Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade, name: "SellerPhones")
 }

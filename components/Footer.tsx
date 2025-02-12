@@ -14,14 +14,7 @@ const Footer = () => {
       links: [
         { text: 'JAGUAR5000', href: '/products/jaguar5000' },
         { text: 'TS-Plus', href: '/products/ts-plus' },
-      ],
-    },
-    resources: {
-      title: 'Resources',
-      links: [
-        { text: 'Blog', href: '/blogs' },
         { text: 'Partner Program', href: '/partner' },
-        { text: 'Messages', href: '/messages' },
       ],
     },
     company: {
@@ -94,7 +87,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="lg:col-span-4"
           >
-            <motion.div variants={itemVariants} className="space-y-6">
+            <motion.div variants={itemVariants} className="space-y-8">
               <Link href="/" className="block">
                 <Image 
                   src="/logo_ow.webp" 
@@ -108,11 +101,29 @@ const Footer = () => {
                 ARA Networks is a leading provider of network security and optimization solutions, 
                 delivering innovative technology to enhance network performance and security.
               </p>
+              {/* Social Links */}
+              {socialLinks.length > 0 && (
+                <div className="flex gap-4 pt-2">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/60 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
+                      aria-label={social.label}
+                    >
+                      <social.Icon className="w-5 h-5 group-hover:text-[#4C9EFF] transition-colors duration-200" />
+                      <span className="text-sm font-medium">Follow us on LinkedIn</span>
+                    </a>
+                  ))}
+                </div>
+              )}
             </motion.div>
           </motion.div>
 
           {/* Navigation Links */}
-          <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-5 grid grid-cols-2 gap-8">
             {Object.values(footerLinks).map((section) => (
               <motion.div key={section.title} variants={itemVariants}>
                 <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
@@ -155,26 +166,6 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-
-            {/* Social Links */}
-            {socialLinks.length > 0 && (
-              <div className="mt-6">
-                <div className="flex gap-4">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/60 hover:text-white transition-colors duration-200"
-                      aria-label={social.label}
-                    >
-                      <social.Icon className="w-5 h-5" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
           </motion.div>
         </div>
 

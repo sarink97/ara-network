@@ -13,6 +13,9 @@ import categoriesRouter from "./routes/categories.js";
 import servicesRouter from "./routes/services.js";
 import AdminFeatureRouter from "./routes/adminRoutes/adminPanel.js";
 import aboutRouter from "./routes/about.js";
+import partnerRouter from "./routes/partner.js";
+import partnerEmail from "./routes/partnerEmail.js";
+import sellerRoutes from "./routes/sellerRouter.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -97,11 +100,14 @@ app.use("/api/messages", messageRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/email", emailRouter);
+app.use("/api/emailPartner", partnerEmail);
 app.use("/api/admin", adminRouter);
 app.use("/home", homeRouter);
 app.use("/categories", categoriesRouter);
 app.use("/services", servicesRouter);
 app.use("/about", aboutRouter);
+app.use("/partner", partnerRouter);
+app.use("/seller", sellerRoutes);
 app.use(express.static("uploads"));
 
 app.use("/admin", AdminFeatureRouter);

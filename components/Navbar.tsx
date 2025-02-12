@@ -156,10 +156,10 @@ const Navbar = () => {
             </CutomRouter>
 
             <CutomRouter
-              href="/blogs"
+              href="/partner"
               className="text-white/90 hover:text-white transition-colors relative group"
             >
-              <span>Blog</span>
+              <span>Partner</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#181c52] group-hover:w-full transition-all duration-300"></span>
             </CutomRouter>
 

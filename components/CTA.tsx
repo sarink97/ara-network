@@ -64,7 +64,7 @@ export default function CTA() {
                   </Link>
 
                   <Link
-                    href="/services"
+                    href="/products"
                     className="group px-8 py-4 rounded-full border-2 border-[#0B1B33]/10 hover:border-[#0B1B33]/20
                       transition-all duration-300 text-[#0B1B33]/70 hover:text-[#0B1B33] hover:bg-[#0B1B33]/5"
                   >

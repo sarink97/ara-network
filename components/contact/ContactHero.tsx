@@ -26,7 +26,7 @@ export default function ContactHero() {
             Contact Us
           </motion.span>
 
-          <h1 className="text-4xl font-bold tracking-tight text-gray-400 sm:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-400 sm:text-6xl px-2">
             Let&apos;s Connect and Create Something Amazing Together
           </h1>
 

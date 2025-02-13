@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export default function ContactHero() {
   return (
@@ -25,13 +25,14 @@ export default function ContactHero() {
           >
             Contact Us
           </motion.span>
-          
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+
+          <h1 className="text-4xl font-bold tracking-tight text-gray-400 sm:text-6xl px-2">
             Let&apos;s Connect and Create Something Amazing Together
           </h1>
-          
+
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            We&apos;re here to help you achieve your business goals. Get in touch with us today.
+            We&apos;re here to help you achieve your business goals. Get in
+            touch with us today.
           </p>
         </motion.div>
       </div>

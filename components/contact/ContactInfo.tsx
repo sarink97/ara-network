@@ -1,8 +1,19 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Building2, Facebook, Twitter, Linkedin, Instagram, PhoneCall, Printer } from 'lucide-react';
-import Link from 'next/link';
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Building2,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  PhoneCall,
+  Printer,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function ContactInfo() {
   const contactDetails = [
@@ -10,9 +21,9 @@ export default function ContactInfo() {
       icon: MapPin,
       title: "Office Locations",
       details: [
-        "90/3 Adawi Enshaat, Damascus, Syria",
-        "21/2051 Baladieh, Jaramana, Syria"
-      ]
+        "BOJEON BLDG. 15F, 70-13, NONHYUN-DONG",
+        "GANGNAM-GU, SEOUL, KOREA 135-010",
+      ],
     },
     {
       icon: Phone,
@@ -20,26 +31,26 @@ export default function ContactInfo() {
       details: [
         {
           label: "Phone:",
-          text: "+963 44 20 567"
+          text: "+82 2 3446 6070",
         },
         {
           label: "Fax:",
-          text: "+963 44 30 567"
-        }
-      ]
+          text: "+82 2 3445 9099",
+        },
+      ],
     },
     {
       icon: Mail,
       title: "Email Address",
-      details: ["gd@ici-sy.com"]
-    }
+      details: ["support@aranetworks.com"],
+    },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' }
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Instagram, href: "#", label: "Instagram" },
   ];
 
   const containerVariants = {
@@ -47,9 +58,9 @@ export default function ContactInfo() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -57,8 +68,8 @@ export default function ContactInfo() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
-    }
+      transition: { duration: 0.5 },
+    },
   };
 
   return (
@@ -95,17 +106,21 @@ export default function ContactInfo() {
                   <item.icon className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-[#111240] font-semibold mb-2">{item.title}</h3>
+                  <h3 className="text-[#111240] font-semibold mb-2">
+                    {item.title}
+                  </h3>
                   {item.details.map((detail, detailIndex) => (
                     <div
                       key={detailIndex}
                       className="flex items-center space-x-2 text-[#111240]/70"
                     >
-                      {typeof detail === 'string' ? (
+                      {typeof detail === "string" ? (
                         <span>{detail}</span>
                       ) : (
                         <div className="flex items-center space-x-2">
-                          <span className="font-semibold text-[#111240]">{detail.label}</span>
+                          <span className="font-semibold text-[#111240]">
+                            {detail.label}
+                          </span>
                           <span>{detail.text}</span>
                         </div>
                       )}
@@ -118,7 +133,7 @@ export default function ContactInfo() {
         ))}
       </motion.div>
 
-      <motion.div variants={itemVariants} className="space-y-4">
+      {/* <motion.div variants={itemVariants} className="space-y-4">
         <h3 className="text-lg font-semibold text-[#111240]">Follow Us</h3>
         <div className="flex space-x-4">
           {socialLinks.map((social, index) => (
@@ -132,7 +147,7 @@ export default function ContactInfo() {
             </Link>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }

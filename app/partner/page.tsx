@@ -184,15 +184,36 @@ const PartnerPage = () => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <div className="w-full flex flex-col justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white h-[60vh]">
-        <div className="container mx-auto px-4 py-20">
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            Let's Connect and Create Something Amazing Together
-          </h1>
-          <p className="text-lg text-center text-gray-200 max-w-2xl mx-auto">
-            We're here to help you achieve your business goals. Get in touch
-            with us today.
-          </p>
+      <div className="relative overflow-hidden bg-[#111240]">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-20"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#181c52] via-[#181c52] to-[#3785CC] animate-gradient"></div>
+        </div>
+
+        <div className="relative container mx-auto px-4 py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-6 inline-block"
+            >
+              Partners
+            </motion.span>
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-10">
+              Join our global network of innovators and market leaders
+            </h1>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+              We're here to help you achieve your business goals. Get in touch
+              with us today.
+            </p>
+          </motion.div>
         </div>
       </div>
 
@@ -202,29 +223,49 @@ const PartnerPage = () => {
         <div>
           {/* Content Grid */}
           <div className="grid md:grid-cols-3 gap-8 mt-8">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Reseller Program</h3>
-              <p className="text-gray-600 mb-4">
-                Join our reseller program and grow your business with our
-                innovative solutions.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">
-                Technology Partners
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Collaborate with us to develop integrated solutions for mutual
-                customers.
-              </p>
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold mb-4">Service Providers</h3>
-              <p className="text-gray-600 mb-4">
-                Deliver value-added services to your customers with our
-                solutions.
-              </p>
-            </div>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">Reseller Program</h3>
+                <p className="text-gray-600 mb-4">
+                  Join our reseller program and grow your business with our
+                  innovative solutions.
+                </p>
+              </div>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">
+                  Technology Partners
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Collaborate with us to develop integrated solutions for mutual
+                  customers.
+                </p>
+              </div>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, delay: 0.2 }}
+            >
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-xl font-semibold mb-4">
+                  Service Providers
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Deliver value-added services to your customers with our
+                  solutions.
+                </p>
+              </div>
+            </motion.span>
           </div>
           {/* <div className="bg-white rounded-lg shadow-lg p-8 mt-12 w-[700px] m-auto">
             <h3 className="text-xl font-semibold mb-4">Search by Country</h3>
@@ -248,36 +289,79 @@ const PartnerPage = () => {
             </p>
           </div> */}
           <hr className="my-2 mt-20" />
-          <h1 className=" text-center text-[50px] font-bold mb-10 mt-12">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center text-[50px] font-bold"
+          >
             Partners
-          </h1>
+          </motion.h1>
           <div className="flex flex-wrap items-center justify-center w-[100vw] px-2 gap-4 mt-4">
             {isLoading && <p className="font-bold text-2xl">Loading...</p>}
             {sellers &&
               sellers.map((seller: Seller, index: number) => (
-                <div
+                <motion.div
                   key={index}
-                  className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200  max-h-[450px] min-h-[350px] w-[380px] justify-stretch "
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200 max-h-[450px] min-h-[350px] w-[380px] justify-stretch hover:shadow-xl transition-shadow"
                 >
                   {/* Seller Name */}
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <motion.h3
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                    className="text-xl font-semibold text-gray-900"
+                  >
                     {seller.name}
-                  </h3>
+                  </motion.h3>
 
                   {/* Location & Email */}
-                  <p className="text-gray-600">📍 {seller.country}</p>
-                  <p className="text-gray-600">
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                    className="text-gray-600"
+                  >
+                    📍 {seller.country}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.4 }}
+                    className="text-gray-600"
+                  >
                     📧 {seller.email || "No Email"}
-                  </p>
+                  </motion.p>
 
                   {/* Company & Address */}
-                  <p className="text-gray-600">🏢 {seller.company || "N/A"}</p>
-                  <p className="text-gray-500 text-sm">
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.5 }}
+                    className="text-gray-600"
+                  >
+                    🏢 {seller.company || "N/A"}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.6 }}
+                    className="text-gray-500 text-sm"
+                  >
                     {seller.address || "No Address Available"}
-                  </p>
+                  </motion.p>
 
                   {/* Phone Numbers */}
-                  <div className="mt-2">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.7 }}
+                    className="mt-2"
+                  >
                     <h4 className="text-gray-700 font-medium">
                       📞 Phone Numbers:
                     </h4>
@@ -292,13 +376,8 @@ const PartnerPage = () => {
                     ) : (
                       <p className="text-gray-500">No Phone Numbers</p>
                     )}
-                  </div>
-
-                  {/* Contact Button */}
-                  {/* <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-                    Contact {seller.name}
-                  </button> */}
-                </div>
+                  </motion.div>
+                </motion.div>
               ))}
           </div>
           <div className="flex flex-col items-center justify-center mt-12">

@@ -133,7 +133,7 @@ export default function ContactInfo() {
         ))}
       </motion.div>
 
-      <motion.div variants={itemVariants} className="space-y-4">
+      {/* <motion.div variants={itemVariants} className="space-y-4">
         <h3 className="text-lg font-semibold text-[#111240]">Follow Us</h3>
         <div className="flex space-x-4">
           {socialLinks.map((social, index) => (
@@ -147,7 +147,7 @@ export default function ContactInfo() {
             </Link>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 }

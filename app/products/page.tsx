@@ -1,202 +1,170 @@
 "use client";
 
+import React from 'react';
 import { motion } from "framer-motion";
-import {
-  Users,
-  UserPlus,
-  ClipboardList,
-  ArrowRight,
-  Shield,
-  RefreshCcwDot,
-} from "lucide-react";
+import { Server, Shield, Network, ArrowRight, Monitor, Scale } from "lucide-react";
 import Link from "next/link";
-import ServiceHero from "@/components/services/ServiceHero";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import { LoadableContext } from "next/dist/shared/lib/loadable-context.shared-runtime";
-import { useContext, useEffect } from "react";
-import { LoadingContext } from "@/components/providers/LoadingProvider";
+import Image from "next/image";
 
-const fetchingServices = async () => {
-  const response = await axios("http://localhost:3001/admin/services/");
-  console.log("API Response:", response.data.response); // Check structure
-  return response.data.response; // This should be an array
-};
+const features = [
+  "Advanced Web Acceleration",
+  "Remote Access Solutions",
+  "Enterprise Security",
+  "Cloud Integration",
+  "24/7 Technical Support",
+  "Scalable Architecture"
+];
 
-const icons = [<RefreshCcwDot key={123456789} />, <Shield key={987654321}/>];
-
-export default function BusinessOutsourcingPage() {
-  const { setIsLoading } = useContext(LoadingContext)!;
-  const { data, isFetching, isLoading, error } = useQuery({
-    queryKey: ["services"],
-    queryFn: fetchingServices,
-  });
-
-  useEffect(() => {
-    setIsLoading(isFetching || isLoading);
-  }, [isFetching, isLoading]);
-
-  // const services = [
-  //   {
-  //     icon: UserPlus,
-  //     title: "Jobs.ici – Recruiting",
-  //     description:
-  //       "Empowering professionals in Syria to discover their ideal career opportunities. Explore a broad selection of job listings, upload your resume, and receive tailored job alerts.",
-  //     link: "/services/business-outsourcing/jobs-ici",
-  //     gradient: "from-[#3785CC] to-[#4A9BE4]",
-  //   },
-  //   {
-  //     icon: Users,
-  //     title: "HR & Recruitment Management",
-  //     description:
-  //       "Strategic talent acquisition and assessment, ensuring candidates are matched to positions that drive business success.",
-  //     link: "/services/business-outsourcing/hr-recruitment",
-  //     gradient: "from-[#4A9BE4] to-[#8590EA]",
-  //   },
-  //   {
-  //     icon: ClipboardList,
-  //     title: "HR Payroll & Performance Management",
-  //     description:
-  //       "Overseeing the payroll system for all personnel, ensuring thorough review of supporting documents and accurate calculations.",
-  //     link: "/services/business-outsourcing/hr-payroll",
-  //     gradient: "from-[#8590EA] to-[#B5C6F4]",
-  //   },
-  // ];
-
-  interface servicesTypes {
-    id: number;
-    title: string;
-    description: string;
-    servicelink: string;
-    overviewtitle: string;
-    overviewcontent: string;
-    categoryId: number;
+const sections = [
+  {
+    icon: Server,
+    title: "JAGUAR5000",
+    description: "Advanced web acceleration and caching solution with 64-bit architecture, offering up to 10Gbps throughput.",
+    link: "/products/jaguar5000",
+    gradient: "from-[#0B1B33] via-[#1E3A8A] to-[#3785CC]"
+  },
+  {
+    icon: Shield,
+    title: "TS-Plus",
+    description: "Remote access solution providing secure and efficient connectivity for your business applications and resources.",
+    link: "/products/ts-plus",
+    gradient: "from-[#1E3A8A] via-[#3785CC] to-[#60A5FA]"
   }
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
+const stats = [
+  { value: "10+", label: "Years Experience", icon: Monitor },
+  { value: "2", label: "Core Products", icon: Server },
+  { value: "99.9%", label: "Uptime", icon: Shield },
+  { value: "24/7", label: "Support", icon: Network }
+];
 
+export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <ServiceHero
-        title="Business Outsourcing"
-        description="IC&I HR outsourcing services is one of our core strengths. Our scalable services are
-        crafted to deliver optimal efficiency and support your business's evolving needs."
-      />
-
-      <div className="w-full lg:w-[1280px]  mx-auto px-4 py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto mb-24 flex flex-col items-center text-justify"
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="px-4 py-1.5 rounded-full text-sm font-medium bg-[#111240]/5 text-[#111240] backdrop-blur-sm mb-6 inline-block"
-          >
-            Overview
-          </motion.span>
-
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] bg-clip-text text-transparent mb-8">
-            Market Leading HR Solutions
-          </h2>
-
-          <p className="text-lg text-[#111240]/70 leading-relaxed text-justify">
-           {` We are the Syrian market leader with the largest market share in
-            providing full recruitment services in UN agencies, NPO's and NGO's.
-            Our comprehensive HR outsourcing solutions are designed to
-            streamline your operations and drive organizational success through
-            effective talent management.`}
-          </p>
-        </motion.div>
-
-        <div className="w-full h-[1px] bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] my-8 opacity-50" />
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="space-y-16"
-        >
-          <div className="text-center mb-16">
-            <motion.span
-              variants={itemVariants}
-              className="px-4 py-1.5 rounded-full text-sm font-medium bg-[#111240]/5 text-[#111240] backdrop-blur-sm mb-4 inline-block"
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-[#0B1B33] text-white">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] opacity-90"></div>
+        <div className="relative max-w-6xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
             >
-              What We Offer
-            </motion.span>
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#4A9BE4] to-[#8590EA] bg-clip-text text-transparent"
-            >
-              Business Outsourcing Solutions
-            </motion.h2>
+              Enterprise Solutions
+            </motion.h1>
             <motion.p
-              variants={itemVariants}
-              className="text-xl text-[#111240]/70 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto"
             >
-              Explore our range of specialized HR and recruitment solutions
-              designed to optimize your workforce management and drive business
-              growth.
+              Cutting-edge technology solutions designed to enhance your business performance and security
             </motion.p>
           </div>
 
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
-          >
-            {data &&
-              data.map((service: servicesTypes, index: number) => (
-                <motion.div
-                  key={service.title}
-                  variants={itemVariants}
-                  className="group relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl transform rotate-1 scale-[1.02] opacity-50 group-hover:rotate-2 transition-transform duration-300"></div>
-                  <div className="relative p-8 rounded-2xl bg-white backdrop-blur-sm border border-gray-100 hover:bg-gray-50 transition-all duration-300 shadow-sm">
-                    {icons && (
-                      <div className="pb-[20px] bg-gradient-to-r from-[#92c1ed] to-[#2284da] transform group-hover:scale-110 transition-transform duration-300 mb-6 w-16 h-16 flex items-center justify-center p-4 rounded-xl">
-                        {icons[index]}{" "}
-                      </div>
-                    )}
+          {/* Features Grid */}
+          <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center"
+              >
+                <p className="text-sm sm:text-base font-medium text-gray-200">{feature}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-                    <h3 className="text-xl font-semibold text-[#111240] mb-4">
-                      {service.title}
-                    </h3>
-                    <p className="text-[#111240]/60 mb-6">
-                      {service.description}
-                    </p>
-                    {/* <Link
-                    href={service.link}
-                    className="inline-flex items-center text-[#111240]/80 hover:text-[#111240] group/link"
-                  >
-                    <span className="mr-2">Learn More</span>
-                    <ArrowRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
-                  </Link> */}
+      {/* Products Section */}
+      <div className="max-w-6xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-sm font-semibold text-[#3785CC] uppercase tracking-wide"
+          >
+            Our Products
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl"
+          >
+            Featured Solutions
+          </motion.h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {sections.map((section, index) => {
+            const Icon = section.icon;
+            return (
+              <motion.div
+                key={section.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Link href={section.link}>
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-50 rounded-2xl transform group-hover:scale-[1.02] transition-transform duration-300"></div>
+                    <div className="relative p-8 rounded-2xl bg-white shadow-lg border border-gray-100 transition-all duration-300">
+                      <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${section.gradient} mb-5`}>
+                        <Icon className="h-6 w-6 text-white" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-900 group-hover:text-[#3785CC] transition-colors duration-300">
+                        {section.title}
+                      </h3>
+                      <p className="mt-4 text-gray-500">
+                        {section.description}
+                      </p>
+                      <div className="mt-4 flex items-center text-[#3785CC] group/link">
+                        <span className="text-sm font-medium">Learn more</span>
+                        <ArrowRight className="ml-2 h-4 w-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
                   </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-24">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#0B1B33]/5">
+                    <Icon className="h-6 w-6 text-[#3785CC]" />
+                  </div>
+                  <p className="mt-4 text-3xl font-semibold text-gray-900">{stat.value}</p>
+                  <p className="mt-2 text-sm text-gray-500">{stat.label}</p>
                 </motion.div>
-              ))}
-          </motion.div>
-        </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

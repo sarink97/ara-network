@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Network, Shield, Globe, Database, Check, Server, Code } from "lucide-react";
 import Image from "next/image";
+import CoreTechnologiesDiagram from "@/components/CoreTechnologiesDiagram";
 
 const stats = [
   { value: "10x", label: "Faster Content Delivery", icon: Network },
@@ -176,46 +177,38 @@ export default function AboutUsPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="flex flex-col gap-16">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative group order-2 lg:order-1"
+                className="relative"
               >
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-                <Image
-                  src="/core.webp"
-                  alt="Core Technologies"
-                  width={800}
-                  height={533}
-                  className="relative rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] w-full"
-                />
+                <CoreTechnologiesDiagram />
               </motion.div>
-              <div className="order-1 lg:order-2">
-                <div className="space-y-6">
-                  {technologies.map((tech, index) => (
-                    <motion.div
-                      key={tech.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
-                      className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
-                    >
-                      <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] flex items-center justify-center">
-                            <tech.icon className="w-6 h-6 text-white" />
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-semibold text-gray-900 mb-2">{tech.title}</h3>
-                          <p className="text-gray-600">{tech.description}</p>
+              
+              <div className="space-y-6">
+                {technologies.map((tech, index) => (
+                  <motion.div
+                    key={tech.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] flex items-center justify-center">
+                          <tech.icon className="w-6 h-6 text-white" />
                         </div>
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{tech.title}</h3>
+                        <p className="text-gray-600">{tech.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>

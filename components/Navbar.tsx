@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CutomRouter from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -12,8 +12,6 @@ import { LoadingContext } from "./providers/LoadingProvider";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const { CutomRouter } = useContext(LoadingContext)!;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,51 +24,35 @@ const Navbar = () => {
 
   const menuItems = [
     {
-      title: "What We Offer",
-      submenu: [
+      title: "Our Solutions",
+      items: [
         {
-          title: "Business Outsourcing",
-          href: "/services/business-outsourcing",
-          items: [
-            {
-              name: "Jobs.ici – Recruiting",
-              href: "/services/business-outsourcing/jobs-ici",
-            },
-            {
-              name: "HR & Recruitment Management",
-              href: "/services/business-outsourcing/hr-recruitment",
-            },
-            {
-              name: "HR Payroll & Performance Management",
-              href: "/services/business-outsourcing/hr-payroll",
-            },
-          ],
+          name: "JAGUAR5000",
+          href: "/products/jaguar5000",
         },
         {
-          title: "ICT Solutions",
-          href: "/services/ict-solutions",
-          items: [
-            {
-              name: "Data Center Infrastructure",
-              href: "/services/ict-solutions/data-center",
-            },
-            {
-              name: "Solutions Integration",
-              href: "/services/ict-solutions/solutions-integration",
-            },
-            {
-              name: "Information Security",
-              href: "/services/ict-solutions/information-security",
-            },
-            {
-              name: "Software Development",
-              href: "/services/ict-solutions/software-development",
-            },
-          ],
+          name: "Operating System",
+          description: "Advanced Security OS",
+          href: "/products/jaguar5000/operating-system",
+        },
+        {
+          name: "Scalability",
+          description: "Enterprise Scaling Solutions",
+          href: "/products/jaguar5000/scalability",
+        },
+        {
+          name: "Technologies",
+          description: "Core Security Features",
+          href: "/products/jaguar5000/technologies",
+        },
+        {
+          name: "ARA-TS",
+          href: "/products/ts-plus",
         },
       ],
     },
   ];
+
   const pathname = usePathname();
 
   if (pathname.startsWith("/admin")) {
@@ -90,56 +72,76 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-20">
-          <CutomRouter href="/" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo_ow.webp"
               alt="IC&I Logo"
-              width={120}
-              height={48}
-              className="h-12 w-auto transition-all duration-300"
+              width={140}
+              height={56}
+              className="h-14 w-auto transition-all duration-300"
             />
-          </CutomRouter>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <CutomRouter
+            <Link
               href="/"
               className="text-white/90 hover:text-white transition-colors relative group"
             >
               <span>Home</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#181c52] group-hover:w-full transition-all duration-300"></span>
-            </CutomRouter>
+            </Link>
 
             <div className="relative group">
-              <CutomRouter
+              <Link
                 href="/services"
                 className="flex items-center text-white/90 hover:text-white transition-colors"
               >
                 What We Offer
                 <ChevronDown className="ml-1 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300" />
-              </CutomRouter>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover:block w-[600px] p-1">
-                <div className="bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
-                  <div className="grid grid-cols-2 gap-8">
-                    {menuItems[0].submenu.map((section) => (
-                      <div key={section.title} className="space-y-4">
-                        <CutomRouter href={section.href} className="block">
-                          <h3 className="text-white font-semibold mb-2 hover:text-[#3785CC] transition-colors">
-                            {section.title}
-                          </h3>
-                        </CutomRouter>
-                        <div className="space-y-2">
-                          {section.items.map((item) => (
-                            <CutomRouter
-                              key={item.name}
-                              href={item.href}
-                              className="group flex items-center text-white hover:text-[#3785CC] transition-colors py-2"
-                            >
-                              <ChevronRight className="w-4 h-4 mr-2 transform group-hover:translate-x-1 transition-transform duration-300" />
-                              {item.name}
-                            </CutomRouter>
-                          ))}
-                        </div>
+              </Link>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover:block w-[400px] p-1">
+                <div className="bg-gradient-to-b from-[#0B1B33]/95 to-[#0B1B33]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
+                  <div className="space-y-4">
+                    {menuItems[0].items.map((item, index) => (
+                      <div key={item.name}>
+                        {/* Add divider before ARA-TS */}
+                        {item.name === "ARA-TS" && (
+                          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
+                        )}
+                        
+                        <Link
+                          href={item.href}
+                          className={`group block text-white ${
+                            !item.description 
+                              ? 'hover:bg-white/5' 
+                              : 'hover:bg-white/5 pl-8 relative before:absolute before:left-3 before:top-1/2 before:-translate-y-1/2 before:w-3 before:h-px before:bg-white/20 before:group-hover:bg-[#4C9EFF]/50'
+                          } rounded-lg p-3 transition-all duration-300`}
+                        >
+                          <div className="flex items-start">
+                            <ChevronRight 
+                              className={`w-5 h-5 mr-2 mt-0.5 ${
+                                !item.description 
+                                  ? 'text-[#4C9EFF]' 
+                                  : 'text-[#4C9EFF]/50 group-hover:text-[#4C9EFF]'
+                              } transform group-hover:translate-x-1 transition-transform duration-300`} 
+                            />
+                            <div>
+                              <div className={
+                                !item.description 
+                                  ? "font-semibold text-lg text-[#4C9EFF] group-hover:text-[#4C9EFF] transition-colors" 
+                                  : "font-medium text-white/80 group-hover:text-white transition-colors"
+                              }>
+                                {item.name}
+                              </div>
+                              {item.description && (
+                                <div className="text-sm text-white/40 group-hover:text-white/60 mt-0.5 transition-colors">
+                                  {item.description}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -147,28 +149,26 @@ const Navbar = () => {
               </div>
             </div>
 
-            <CutomRouter
+            <Link
               href="/about"
               className="text-white/90 hover:text-white transition-colors relative group"
             >
               <span>About Us</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#181c52] group-hover:w-full transition-all duration-300"></span>
-            </CutomRouter>
-
-            <CutomRouter
-              href="/blogs"
+            </Link>
+            <Link
+              href="/partner"
               className="text-white/90 hover:text-white transition-colors relative group"
             >
-              <span>Blog</span>
+              <span>Partner</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#181c52] group-hover:w-full transition-all duration-300"></span>
-            </CutomRouter>
-
-            <CutomRouter
+            </Link>
+            <Link
               href="/contact"
               className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium rounded-full shadow-sm text-white bg-[#3785CC] hover:bg-[#3785CC]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#3785CC]/50 transition-all duration-300"
             >
               Contact Us
-            </CutomRouter>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -191,57 +191,48 @@ const Navbar = () => {
               className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-white/10"
             >
               <div className="px-4 py-6 space-y-4">
-                <CutomRouter
+                <Link
                   href="/"
                   className="block text-white/90 hover:text-white transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Home
-                </CutomRouter>
+                </Link>
 
-                {menuItems[0].submenu.map((section) => (
-                  <div key={section.title} className="space-y-2">
-                    <CutomRouter href={section.href} className="block">
-                      <h3 className="text-white font-semibold mb-2 hover:text-[#3785CC] transition-colors">
-                        {section.title}
-                      </h3>
-                    </CutomRouter>
-                    {section.items.map((item) => (
-                      <CutomRouter
-                        key={item.name}
-                        href={item.href}
-                        className="block text-white/70 hover:text-white transition-colors py-2 pl-4"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </CutomRouter>
-                    ))}
-                  </div>
+                {menuItems[0].items.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block text-white/90 hover:text-white transition-colors py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
                 ))}
 
-                <CutomRouter
+                <Link
                   href="/about"
                   className="block text-white/90 hover:text-white transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   About Us
-                </CutomRouter>
+                </Link>
 
-                <CutomRouter
+                <Link
                   href="/blogs"
                   className="block text-white/90 hover:text-white transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Blog
-                </CutomRouter>
+                </Link>
 
-                <CutomRouter
+                <Link
                   href="/contact"
                   className="block px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full text-center"
                   onClick={() => setIsOpen(false)}
                 >
                   Contact Us
-                </CutomRouter>
+                </Link>
               </div>
             </motion.div>
           )}

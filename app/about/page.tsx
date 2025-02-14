@@ -1,336 +1,240 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { motion } from "framer-motion";
-import {
-  Globe,
-  Target,
-  Compass,
-  Shield,
-  Users,
-  Heart,
-  ArrowRight,
-} from "lucide-react";
+import { Network, Shield, Globe, Database, Check, Server, Code } from "lucide-react";
 import Image from "next/image";
-import * as LucideIcons from "lucide-react";
-import { apiClient } from "@/lib/api";
 
-const fetchingAbout = async () => {
-  const response = await apiClient.get("/about/");
-  console.log(response.data.about);
-  const obj = Object.entries(response.data.about);
-  console.log(obj);
-  return await response.data.about;
-};
+const stats = [
+  { value: "10x", label: "Faster Content Delivery", icon: Network },
+  { value: "50%", label: "Bandwidth Savings", icon: Database },
+  { value: "99.9%", label: "Uptime", icon: Shield },
+  { value: "24/7", label: "Support", icon: Globe }
+];
 
-export default function AboutPage() {
-  const { data, isLoading, isPending, error } = useQuery({
-    queryKey: ["about"],
-    queryFn: fetchingAbout,
-  });
-
-  const DynamicIcon = ({ iconName }: { iconName: string }) => {
-    const Icon = LucideIcons[
-      iconName as keyof typeof LucideIcons
-    ] as React.ElementType;
-    return Icon ? <Icon className="w-8 h-8 text-white" /> : null;
-  };
-
-  interface AboutResponse {
-    status: string;
-    about: About;
+const solutions = [
+  {
+    icon: Network,
+    title: "JAGUAR",
+    description: "Our flagship caching solution that revolutionizes web, media, and mobile performance, ensuring faster and more efficient content delivery.",
+  },
+  {
+    icon: Shield,
+    title: "TS-Plus Web Filtering",
+    description: "An advanced solution designed to enhance security and optimize network traffic by filtering unwanted or harmful web content.",
   }
+];
 
-  interface About {
-    id: number;
-    title: string;
-    subtitle: string;
-    description: string[];
-    img: string;
-    mission: string;
-    vision: string;
-    values: Value[];
-    stats: Stat[];
+const technologies = [
+  {
+    icon: Server,
+    title: "JAGUAR OS",
+    description: "A caching-only OS designed to handle massive and overused network traffic effortlessly. It enhances web content delivery speed, delivering an unparalleled user experience while maximizing network efficiency.",
+  },
+  {
+    icon: Code,
+    title: "NMP",
+    description: "A high-performance traffic monitoring solution built for backbone networks. Powered by advanced DPI (Deep Packet Inspection) technology, NMP ensures network transparency and efficient management of large-scale traffic.",
   }
+];
 
-  interface Value {
-    id: number;
-    icon: keyof typeof LucideIcons;
-    title: string;
-    text: string;
-    aboutId: number;
-  }
-
-  interface Stat {
-    id: number;
-    number: string;
-    label: string;
-    aboutId: number;
-  }
-
-  const values = [
-    {
-      icon: Globe,
-      title: "Global Standards",
-      text: "UN Global Compact signatory since 2023",
-      gradient: "from-[#3785CC] to-[#4A9BE4]",
-    },
-    {
-      icon: Target,
-      title: "Mission-Driven",
-      text: "Preferred strategic partner for consultancy and services",
-      gradient: "from-[#4A9BE4] to-[#5B8AF0]",
-    },
-    {
-      icon: Compass,
-      title: "Clear Vision",
-      text: "Driving innovation and exceptional performance",
-      gradient: "from-[#5B8AF0] to-[#8590EA]",
-    },
-    {
-      icon: Shield,
-      title: "Strong Ethics",
-      text: "Highest standards of integrity and professionalism",
-      gradient: "from-[#8590EA] to-[#B5C6F4]",
-    },
-    {
-      icon: Users,
-      title: "Client Focus",
-      text: "Building lasting partnerships through collaboration",
-      gradient: "from-[#3785CC] to-[#5B8AF0]",
-    },
-    {
-      icon: Heart,
-      title: "Core Values",
-      text: "Transparency, respect, innovation, and unwavering commitment to excellence",
-      gradient: "from-[#4A9BE4] to-[#B5C6F4]",
-    },
-  ];
-
-  const stats = [
-    { number: "15+", label: "Years Experience" },
-    { number: "200+", label: "Projects Completed" },
-    { number: "50+", label: "Expert Team Members" },
-    { number: "98%", label: "Client Satisfaction" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
-  };
-
+export default function AboutUsPage() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Dark */}
-      <div className="relative overflow-hidden bg-[#111240]">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-20"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#181c52] via-[#181c52] to-[#3785CC] animate-gradient"></div>
+      {/* Hero Section with Diagonal Design */}
+      <div className="relative bg-gradient-to-br from-[#0B1B33] via-[#1E3A8A] to-[#3785CC] overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-30 mix-blend-soft-light"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#3785CC]/10 via-transparent to-transparent"></div>
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: 'radial-gradient(circle at 50% 120%, rgba(55, 133, 204, 0.3), transparent)'
+          }}></div>
         </div>
 
-        {data && (
-          <div className="relative container mx-auto px-4 py-32">
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#3785CC]/20 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#1E3A8A]/20 rounded-full filter blur-3xl animate-pulse delay-700"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 pt-40 pb-24 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative z-10"
+            >
+              <span className="inline-block px-4 py-1.5 mb-6 rounded-full text-sm font-medium bg-white/10 text-white/80">
+                About Us
+              </span>
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                Empowering
+                <span className="bg-gradient-to-r from-[#60A5FA] to-[#93C5FD] text-transparent bg-clip-text ml-4">
+                  Networks
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
+                Since 1999, we've been dedicated to solving operators' toughest challenges in an era of explosive internet growth
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Section */}
+      <div className="relative -mt-12 z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center group"
+            >
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <stat.icon className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-[#0B1B33] to-[#1E3A8A] bg-clip-text text-transparent mb-2">
+                {stat.value}
+              </div>
+              <div className="text-gray-600 font-medium">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Overview Section */}
+      <div className="max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">
+                Cutting-Edge Solutions, Trusted Globally
+              </h2>
+              <p className="text-gray-700 mb-8 text-lg leading-relaxed">
+                Founded in 1999 by a team of visionary computer scientists, ARA Networks has been dedicated to solving operators' toughest challenges. Today, we're a global leader in web, media, and mobile caching solutions, committed to driving innovation and performance for businesses worldwide.
+              </p>
+              <div className="space-y-6">
+                {solutions.map((solution, index) => (
+                  <motion.div
+                    key={solution.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
+                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] flex items-center justify-center">
+                          <solution.icon className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{solution.title}</h3>
+                        <p className="text-gray-600">{solution.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative group"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+              <Image
+                src="/about.webp"
+                alt="ARA Networks Overview"
+                width={800}
+                height={533}
+                className="relative rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] w-full"
+              />
+            </motion.div>
+          </div>
+
+          {/* Core Technologies Section */}
+          <div className="relative">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center"
+              className="text-center mb-16"
             >
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-6 inline-block"
-              >
-                About Us
-              </motion.span>
-              <h1 className="text-6xl font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6">
-                {data.title}
-              </h1>
-              <p className="text-xl text-white/80 max-w-2xl mx-auto">
-                {data.subtitle}
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">
+                Core Technologies: Redefining Network Efficiency
+              </h2>
+              <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
+                At ARA Networks, our independently developed operating system (OS) technology delivers unmatched performance and reliability for optimal network traffic management.
               </p>
             </motion.div>
-          </div>
-        )}
-      </div>
 
-      {/* Main Content - Light */}
-      <div className="bg-white relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-5"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#3785CC]/5 via-[#5B8AF0]/5 to-[#8590EA]/5 animate-gradient"></div>
-        </div>
-
-        <div className="container mx-auto px-4 py-24 relative">
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {/* Company History */}
-            <motion.div variants={itemVariants} className="space-y-8">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-20"></div>
-                <div className="relative rounded-2xl overflow-hidden">
-                  <Image
-                    src={data?.img}
-                    alt="IC&I Office"
-                    width={800}
-                    height={600}
-                    className="w-full aspect-[4/3] object-cover transform group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-              </div>
-
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {data &&
-                  data.stats &&
-                  data.stats.map((stat: Stat, index: number) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative group order-2 lg:order-1"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <Image
+                  src="/core.webp"
+                  alt="Core Technologies"
+                  width={800}
+                  height={533}
+                  className="relative rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-[1.01] w-full"
+                />
+              </motion.div>
+              <div className="order-1 lg:order-2">
+                <div className="space-y-6">
+                  {technologies.map((tech, index) => (
                     <motion.div
-                      key={index}
-                      variants={itemVariants}
-                      className="p-6 rounded-xl bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors duration-300"
+                      key={tech.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
+                      className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
                     >
-                      <div className="text-3xl font-bold bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] bg-clip-text text-transparent mb-2">
-                        {stat.number}
-                      </div>
-                      <div className="text-[#111240]/60 text-sm">
-                        {stat.label}
+                      <div className="flex items-start space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] flex items-center justify-center">
+                            <tech.icon className="w-6 h-6 text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-gray-900 mb-2">{tech.title}</h3>
+                          <p className="text-gray-600">{tech.description}</p>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
-              </div>
-            </motion.div>
-
-            {/* Story Content */}
-            <motion.div variants={itemVariants} className="space-y-8">
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] bg-clip-text text-transparent">
-                  Our Story
-                </h2>
-                <div className="space-y-4 text-[#111240]/70 text-lg leading-relaxed">
-                  <p>{data?.description}</p>
-                  {/* <p>
-                    Over the years, IC&I has built a strong reputation for
-                    delivering exceptional services and achieving remarkable
-                    results. Our dedication to excellence is reflected in the
-                    trust and loyalty we have earned from a wide range of
-                    clients.
-                  </p>
-                  <p>
-                    With a presence across all Syrian governorates and main
-                    offices in Damascus, Aleppo, Homs, Lattakia, and
-                    Dara&apos;a, we are strategically positioned to offer
-                    top-tier services wherever they are needed.
-                  </p> */}
                 </div>
               </div>
-
-              {/* Mission & Vision */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="p-8 rounded-2xl bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-all duration-300">
-                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] bg-clip-text text-transparent">
-                    Our Mission
-                  </h3>
-                  <p className="text-[#111240]/70">{data?.mission}</p>
-                </div>
-                <div className="p-8 rounded-2xl bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-all duration-300">
-                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[#4A9BE4] to-[#8590EA] bg-clip-text text-transparent">
-                    Our Vision
-                  </h3>
-                  <p className="text-[#111240]/70">{data?.vision}</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Values Section - Dark */}
-      <div className="relative overflow-hidden bg-[#111240]">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-20"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#181c52] via-[#181c52] to-[#3785CC] animate-gradient"></div>
-        </div>
-
-        <div className="container mx-auto px-4 py-32 relative">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <div className="text-center mb-16">
-              <motion.span
-                variants={itemVariants}
-                className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-4 inline-block"
-              >
-                Our Values
-              </motion.span>
-              <motion.h2
-                variants={itemVariants}
-                className="text-4xl font-bold mb-6 bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent"
-              >
-                What Drives Us
-              </motion.h2>
-              <motion.p
-                variants={itemVariants}
-                className="text-xl text-white/80 max-w-2xl mx-auto"
-              >
-                Our core values shape everything we do and guide us in
-                delivering excellence
-              </motion.p>
             </div>
+          </div>
 
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
-            >
-              {data &&
-                data.values &&
-                data.values.map((value: Value, index: number) => {
-                  return (
-                    <motion.div
-                      key={value.title}
-                      variants={itemVariants}
-                      className="group relative"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-2xl transform rotate-1 scale-[1.02] opacity-50 group-hover:rotate-2 transition-transform duration-300"></div>
-                      <div className="relative p-8 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 hover:bg-white/25 transition-all duration-300">
-                        <div
-                          className={`p-4 rounded-xl bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] transform group-hover:scale-110 transition-transform duration-300 mb-6 w-16 h-16 flex items-center justify-center`}
-                        >
-                          <DynamicIcon iconName={value.icon} />
-                        </div>
-                        <h3 className="text-xl font-semibold text-white mb-4">
-                          {value.title}
-                        </h3>
-                        <p className="text-white/80">{value.text}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-            </motion.div>
+          {/* Global Recognition */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-24 text-center"
+          >
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-8 rounded-2xl shadow-lg">
+              <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent">
+                Globally Recognized Leadership
+              </h2>
+              <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
+                ARA Networks is proud to be recognized as one of the Top 6 Global Companies in the Transparent Caching Market, as highlighted by Frost & Sullivan in their analysis. This acknowledgment reflects our unwavering commitment to innovation, reliability, and exceptional service.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

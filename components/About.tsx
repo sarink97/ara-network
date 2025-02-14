@@ -1,227 +1,220 @@
 "use client";
 
-import { apiClient } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
-import {
-  Globe,
-  Target,
-  Compass,
-  Shield,
-  Users,
-  Heart,
-  ArrowRight,
-  LucideIcon,
-} from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight, Shield, Globe, Clock, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
-const ICONS: Record<string, LucideIcon> = {
-  Globe: Globe,
-  Target: Target,
-  Compass: Compass,
-  Shield: Shield,
-  Users: Users,
-  Heart: Heart,
-  ArrowRight: ArrowRight,
-};
-interface AboutContent {
-  features: {
-    icon: string;
-    title: string;
-    text: string;
-    color: string;
-  }[];
-  stats: {
-    number: string;
-    label: string;
-  }[];
-  title: string;
-  subtitle: string;
-  content: string[];
-  img?: string;
+const features = [
+  {
+    icon: Shield,
+    title: "Security First",
+    description:
+      "Enterprise-grade protection with cutting-edge security solutions",
+  },
+  {
+    icon: Globe,
+    title: "Global Reach",
+    description: "Serving businesses worldwide with reliable network solutions",
+  },
+  {
+    icon: Clock,
+    title: "24/7 Support",
+    description: "Round-the-clock technical support and monitoring",
+  },
+  {
+    icon: Users,
+    title: "Expert Team",
+    description: "Dedicated professionals with decades of industry experience",
+  },
+];
+
+const stats = [
+  { value: 24, label: "Years of Excellence", suffix: "+" },
+  { value: 500, label: "Enterprise Clients", suffix: "+" },
+  { value: 99.9, label: "Uptime Guarantee", suffix: "%" },
+  { value: 30, label: "Countries Served", suffix: "+" },
+];
+
+interface CounterProps {
+  value: number;
+  label: string;
+  suffix?: string;
+}
+
+function Counter({ value, label, suffix = "" }: CounterProps) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      const duration = 2000;
+      const steps = 60;
+      const stepDuration = duration / steps;
+      let currentStep = 0;
+
+      const timer = setInterval(() => {
+        currentStep++;
+        const progress = currentStep / steps;
+        const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
+        const currentValue = Math.min(value * easedProgress, value);
+        setCount(currentValue);
+
+        if (currentStep >= steps) {
+          clearInterval(timer);
+          setCount(value); // Ensure we end up at exactly the target value
+        }
+      }, stepDuration);
+
+      return () => clearInterval(timer);
+    }
+  }, [isInView, value]);
+
+  const formatNumber = (num: number) => {
+    if (Number.isInteger(num)) {
+      return Math.round(num).toString();
+    }
+    return num.toFixed(1);
+  };
+
+  return (
+    <div ref={ref} className="text-center">
+      <div className="text-4xl font-bold text-white mb-2">
+        {formatNumber(count)}
+        {suffix}
+      </div>
+      <div className="text-white/60">{label}</div>
+    </div>
+  );
 }
 
 export default function About() {
-  const {
-    data: aboutUsContent,
-    isError,
-    isLoading,
-    error,
-  } = useQuery<AboutContent>({
-    queryKey: ["about"],
-    queryFn: async () => {
-      const connect = await apiClient.get("/home");
-      console.log(connect.data.home[0].aboutUs);
-      return connect.data.home[0].aboutUs;
-    },
-  });
-
-  if (isLoading) {
-    if (isLoading) {
-      return (
-        <div className="flex items-center justify-center h-screen bg-gradient-to-b from-gray-900 to-gray-800">
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-white text-lg font-medium">
-              Loading content, please wait...
-            </p>
-          </div>
-        </div>
-      );
-    }
-  }
-
-  if (isError || !aboutUsContent) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-b from-gray-900 to-gray-800">
-        <div className="text-center space-y-4">
-          <h2 className="text-2xl font-bold text-red-500">
-            Oops! Something went wrong
-          </h2>
-          <p className="text-gray-300">
-            We were unable to load the content. Please try again later or
-            contact support.
-          </p>
-          <button
-            onClick={() => location.reload()}
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-20"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#F7F9FE] to-[#F7F9FE] animate-gradient"></div>
+    <section className="relative py-24 bg-gradient-to-b from-[#0B1B33] to-[#0B1B33]/95">
+      {/* Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]" />
+
+        {/* Animated Background Elements */}
+        <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float" />
+        <div className="absolute top-40 right-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float-delay-1" />
+        <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-purple-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float-delay-2" />
+
+        {/* Animated Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1B33]/0 via-[#0B1B33]/50 to-[#0B1B33]/0 animate-pulse-slow" />
       </div>
 
-      <div className="w-full lg:w-[1280px] mx-auto px-4 relative">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block"
-          >
-            <span className="px-4 py-1.5 rounded-full text-sm font-medium bg-gray-200 text-[#111240] backdrop-blur-sm mb-4 inline-block">
-              About Us
-            </span>
-            <h2 className="text-5xl font-bold mb-6 text-[#011240]">
-              {aboutUsContent.title}
-            </h2>
-            <p className="text-xl text-[#111240] max-w-2xl mx-auto leading-relaxed">
-              {aboutUsContent.subtitle}
-            </p>
-          </motion.div>
+      {/* Main Content */}
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Section Title */}
+        <div className="flex items-center gap-4 mb-16">
+          <div className="h-[2px] w-8 bg-[#4C9EFF]"></div>
+          <h3 className="text-lg font-semibold text-[#4C9EFF] tracking-wide uppercase">
+            About us
+          </h3>
+          <div className="h-[2px] flex-1 bg-white/10"></div>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-          {/* Left Column - Image and Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
+        <div className="text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"
           >
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-75"></div>
-              <img
-                src={aboutUsContent.img}
-                alt="IC&I Office"
-                className="relative rounded-2xl w-full aspect-[4/3] object-cover transform group-hover:scale-[1.02] transition-transform duration-500"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {
-                // @ts-ignore
-                aboutUsContent &&
-                  aboutUsContent.stats &&
-                  aboutUsContent.stats.map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="p-6 rounded-xl bg-transparent backdrop-blur-sm border border-[#B5C6F4] transition-colors duration-300"
-                    >
-                      <div className="text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text mb-2 text-[#111240]">
-                        {stat.number}
-                      </div>
-                      <div className="text-[#111240] text-sm">{stat.label}</div>
-                    </motion.div>
-                  ))
-              }
-            </div>
-          </motion.div>
-
-          {/* Right Column - Content and Features */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
+            Empowering Networks Since 1999
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="mt-4 text-lg text-white/60"
           >
-            <div className="space-y-6 text-lg text-[#111240] leading-relaxed">
-              {aboutUsContent.content &&
-                aboutUsContent.content.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-            </div>
+            Your Trusted Partner in Network Solutions
+          </motion.p>
+        </div>
 
-            <div className="space-y-6">
-              {
-                // @ts-ignore
-                aboutUsContent &&
-                  aboutUsContent.features &&
-                  aboutUsContent.features.map((feature, index) => {
-                    const IconComponent = ICONS[feature.icon] || null;
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="group p-6 rounded-xl bg-white/10 backdrop-blur-sm border border-[#B5C6F4] hover:bg-[#B5C6F4] transition-all duration-300"
-                      >
-                        <div className="flex items-start space-x-4">
-                          <div
-                            className={`p-3 rounded-lg bg-gradient-to-r ${feature.color} group-hover:scale-110 transition-transform duration-300`}
-                          >
-                            {IconComponent && (
-                              <IconComponent className="w-6 h-6 text-white" />
-                            )}
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-semibold text-[#111240] mb-2">
-                              {feature.title}
-                            </h3>
-                            <p className="text-[#111240]">{feature.text}</p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })
-              }
-            </div>
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 p-8 bg-white/5 rounded-2xl backdrop-blur-sm"
+        >
+          {stats.map((stat) => (
+            <Counter
+              key={stat.label}
+              value={stat.value}
+              label={stat.label}
+              suffix={stat.suffix}
+            />
+          ))}
+        </motion.div>
 
-            <Link
-              href="/about"
-              className="inline-flex items-center space-x-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-[#111240]
-                backdrop-blur-sm border border-white/10 transition-all duration-300 group"
+        {/* Image Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative aspect-[21/9] rounded-2xl overflow-hidden mb-16"
+        >
+          <Image
+            src="/about.webp"
+            alt="ARA Networks Office"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B33] via-transparent to-transparent" />
+
+          {/* Content Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-8">
+            <div className="max-w-3xl">
+              <p className="text-lg text-white/80 mb-6">
+                Founded by a team of visionary computer scientists, ARA Networks
+                has been at the forefront of network technology innovation for
+                over two decades. Our commitment to excellence and continuous
+                innovation has made us a trusted partner for enterprises
+                worldwide.
+              </p>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 text-[#4C9EFF] hover:gap-4 transition-all duration-300"
+              >
+                Learn More <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="relative group"
             >
-              <span>Learn More About Us</span>
-              <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
-          </motion.div>
+              <div className="absolute inset-0 bg-white/5 rounded-2xl transition-all duration-300 group-hover:bg-white/10" />
+              <div className="relative p-8 flex gap-6">
+                <div className="flex-shrink-0">
+                  <feature.icon className="w-12 h-12 text-[#4C9EFF]" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-white/60">{feature.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

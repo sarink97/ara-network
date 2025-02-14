@@ -76,9 +76,9 @@ const Navbar = () => {
             <Image
               src="/logo_ow.webp"
               alt="IC&I Logo"
-              width={140}
-              height={56}
-              className="h-14 w-auto transition-all duration-300"
+              width={180}
+              height={70}
+              className="h-16 w-auto transition-all duration-300"
             />
           </Link>
 

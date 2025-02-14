@@ -10,7 +10,8 @@ const features = [
   {
     icon: Shield,
     title: "Security First",
-    description: "Enterprise-grade protection with cutting-edge security solutions",
+    description:
+      "Enterprise-grade protection with cutting-edge security solutions",
   },
   {
     icon: Globe,
@@ -95,27 +96,29 @@ export default function About() {
       {/* Background Pattern */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]" />
-        
+
         {/* Animated Background Elements */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float" />
         <div className="absolute top-40 right-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float-delay-1" />
         <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-purple-500 rounded-full mix-blend-soft-light filter blur-xl opacity-10 animate-float-delay-2" />
-        
+
         {/* Animated Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0B1B33]/0 via-[#0B1B33]/50 to-[#0B1B33]/0 animate-pulse-slow" />
       </div>
-      
+
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Section Title */}
         <div className="flex items-center gap-4 mb-16">
           <div className="h-[2px] w-8 bg-[#4C9EFF]"></div>
-          <h3 className="text-lg font-semibold text-[#4C9EFF] tracking-wide uppercase">About us</h3>
+          <h3 className="text-lg font-semibold text-[#4C9EFF] tracking-wide uppercase">
+            About us
+          </h3>
           <div className="h-[2px] flex-1 bg-white/10"></div>
         </div>
 
         <div className="text-center mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -159,24 +162,26 @@ export default function About() {
           className="relative aspect-[21/9] rounded-2xl overflow-hidden mb-16"
         >
           <Image
-            src='/about.webp'
+            src="/about.webp"
             alt="ARA Networks Office"
             fill
             className="object-cover"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B33] via-transparent to-transparent" />
-          
+
           {/* Content Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <div className="max-w-3xl">
               <p className="text-lg text-white/80 mb-6">
-                Founded by a team of visionary computer scientists, ARA Networks has been at the forefront 
-                of network technology innovation for over two decades. Our commitment to excellence and 
-                continuous innovation has made us a trusted partner for enterprises worldwide.
+                Founded by a team of visionary computer scientists, ARA Networks
+                has been at the forefront of network technology innovation for
+                over two decades. Our commitment to excellence and continuous
+                innovation has made us a trusted partner for enterprises
+                worldwide.
               </p>
-              <Link 
-                href="/contact"
+              <Link
+                href="/about"
                 className="inline-flex items-center gap-2 text-[#4C9EFF] hover:gap-4 transition-all duration-300"
               >
                 Learn More <ArrowRight className="w-5 h-5" />
@@ -202,7 +207,9 @@ export default function About() {
                   <feature.icon className="w-12 h-12 text-[#4C9EFF]" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {feature.title}
+                  </h3>
                   <p className="text-white/60">{feature.description}</p>
                 </div>
               </div>

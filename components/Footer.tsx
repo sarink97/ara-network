@@ -4,48 +4,44 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, Building2, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, Linkedin } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const Footer = () => {  
-  console.log("Rendering Footer");
-
   const footerLinks = {
-    businessOutsourcing: {
-      title: 'Business Outsourcing',
+    products: {
+      title: 'Products',
       links: [
-        { text: 'HR Payroll & Performance Management', href: '/hr-payroll' },
-        { text: 'HR & Recruitment Management', href: '/hr-recruitment' },
-        { text: 'Jobs.ici – Recruiting', href: '/jobs-ici' },
+        { text: 'JAGUAR5000', href: '/products/jaguar5000' },
+        { text: 'TS-Plus', href: '/products/ts-plus' },
+        { text: 'Partner Program', href: '/partner' },
       ],
     },
-    itSolutions: {
-      title: 'IT Solutions',
+    company: {
+      title: 'Company',
       links: [
-        { text: 'Solutions Integration', href: '/solutions-integration' },
-        { text: 'Information Security', href: '/information-security' },
-        { text: 'Software Development', href: '/software-development' },
-        { text: 'Data Center Infrastructure', href: '/data-center' },
+        { text: 'About Us', href: '/about' },
+        { text: 'Contact', href: '/contact' },
       ],
     },
   };
 
   const contactInfo = [
-    { Icon: MapPin, text: '90/3 Adawi Enshaat, Damascus, Syria.' },
-    { Icon: MapPin, text: '21/2051 Baladieh, Jaramana, Syria' },
     { 
-      Icon: Phone, 
-      text: ['Phone: +963 44 20 567', 'Fax: +963 44 30 567'],
+      Icon: MapPin, 
+      text: ['BOJEON BLDG. 15F, 70-13, NONHYUN-DONG', 'GANGNAM-GU, SEOUL, KOREA 135-010'],
       multiline: true 
     },
-    { Icon: Mail, text: 'gd@ici-sy.com' },
+    { 
+      Icon: Phone, 
+      text: ['Tel.: +82 2 3446 6070', 'Fax: +82 2 3445 9099'],
+      multiline: true 
+    },
+    { Icon: Mail, text: 'info@ara-networks.com' },
   ];
 
   const socialLinks = [
-    { Icon: Facebook, href: '#', label: 'Facebook' },
-    { Icon: Twitter, href: '#', label: 'Twitter' },
-    { Icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { Icon: Instagram, href: '#', label: 'Instagram' },
+    { Icon: Linkedin, href: 'https://www.linkedin.com/company/ara-networks', label: 'LinkedIn' },
   ];
 
   const containerVariants = {
@@ -67,138 +63,118 @@ const Footer = () => {
       transition: { duration: 0.5 },
     },
   };
+  
   const pathname = usePathname();
 
-  if (pathname.startsWith('/admin') || pathname.startsWith('/blogs/')) {
-    return null; // Hide Footer on admin and blog post pages
+  if (pathname.startsWith('/admin')) {
+    return null;
   }
   
   return (
-    <footer className="bg-gradient-to-b from-[#111240] to-[#0A0C2E] relative overflow-hidden">
-      {/* Animated Background */}
+    <footer className="bg-gradient-to-b from-[#0B1B33] to-[#0B1B33]/95 relative">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-full h-full bg-[url('/noise.png')] opacity-10"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#3785CC]/10 via-[#5B8AF0]/10 to-[#8590EA]/10 animate-gradient"></div>
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-blue-500/5" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-16"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 py-12">
           {/* Company Info */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <Link href="/" className="block">
-              <Image 
-                src="/logo_ow.webp" 
-                alt="IC&I Logo" 
-                width={140}
-                height={56}
-                className="h-14 w-auto"
-              />
-            </Link>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Information Consultancies & Installations (IC&I) is a leading provider of ICT solutions and business outsourcing services in Syria.
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.label}
-                  href={social.href}
-                  className="p-2 rounded-full bg-[#3785CC]/10 hover:bg-[#3785CC]/20 border border-[#3785CC]/20 
-                    transition-colors duration-300 group"
-                  aria-label={social.label}
-                >
-                  <social.Icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors duration-300" />
-                </Link>
-              ))}
-            </div>
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-4"
+          >
+            <motion.div variants={itemVariants} className="space-y-8">
+              <Link href="/" className="block">
+                <Image 
+                  src="/logo_ow.webp" 
+                  alt="ARA Networks Logo" 
+                  width={140}
+                  height={56}
+                  className="h-14 w-auto"
+                />
+              </Link>
+              <p className="text-white/60 text-sm leading-relaxed">
+                ARA Networks is a leading provider of network security and optimization solutions, 
+                delivering innovative technology to enhance network performance and security.
+              </p>
+              {/* Social Links */}
+              {socialLinks.length > 0 && (
+                <div className="flex gap-4 pt-2">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/60 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
+                      aria-label={social.label}
+                    >
+                      <social.Icon className="w-5 h-5 group-hover:text-[#4C9EFF] transition-colors duration-200" />
+                      <span className="text-sm font-medium">Follow us on LinkedIn</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </motion.div>
           </motion.div>
 
-          {/* Business Outsourcing */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-lg font-semibold text-white bg-gradient-to-r from-[#3785CC] to-[#4A9BE4] bg-clip-text text-transparent">{footerLinks.businessOutsourcing.title}</h3>
-            <ul className="space-y-3">
-              {footerLinks.businessOutsourcing.links.map((link) => (
-                <li key={link.href}>
-                  <Link 
-                    href={link.href}
-                    className="group flex items-center text-white/80 hover:text-white transition-colors duration-300"
-                  >
-                    <span>{link.text}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* IT Solutions */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-lg font-semibold text-white bg-gradient-to-r from-[#4A9BE4] to-[#8590EA] bg-clip-text text-transparent">{footerLinks.itSolutions.title}</h3>
-            <ul className="space-y-3">
-              {footerLinks.itSolutions.links.map((link) => (
-                <li key={link.href}>
-                  <Link 
-                    href={link.href}
-                    className="group flex items-center text-white/80 hover:text-white transition-colors duration-300"
-                  >
-                    <span>{link.text}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          {/* Navigation Links */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-8">
+            {Object.values(footerLinks).map((section) => (
+              <motion.div key={section.title} variants={itemVariants}>
+                <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                  {section.title}
+                </h3>
+                <ul className="space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.text}>
+                      <Link 
+                        href={link.href}
+                        className="text-white/60 hover:text-white text-sm transition-colors duration-200"
+                      >
+                        {link.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
 
           {/* Contact Info */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <h3 className="text-lg font-semibold text-white bg-gradient-to-r from-[#8590EA] to-[#B5C6F4] bg-clip-text text-transparent">Contact Info</h3>
+          <motion.div variants={itemVariants} className="lg:col-span-3">
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              Contact Us
+            </h3>
             <ul className="space-y-4">
               {contactInfo.map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <div className="p-2 rounded-lg bg-[#3785CC]/10 border border-[#3785CC]/20">
-                    <item.Icon className="w-5 h-5 text-white/80" />
-                  </div>
-                  <div>
-                    {Array.isArray(item.text) ? (
+                <li key={index} className="flex items-start gap-3">
+                  <item.Icon className="w-4 h-4 text-[#4C9EFF] mt-1 flex-shrink-0" />
+                  <div className="text-white/60">
+                    {item.multiline ? (
                       item.text.map((line, i) => (
-                        <p key={i} className="text-white/80">{line}</p>
+                        <div key={i} className="text-sm leading-relaxed">{line}</div>
                       ))
                     ) : (
-                      <span className="text-white/80">{item.text}</span>
+                      <div className="text-sm">{item.text}</div>
                     )}
                   </div>
                 </li>
               ))}
             </ul>
           </motion.div>
-        </motion.div>
+        </div>
 
-        {/* Bottom Bar */}
-        <motion.div 
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative py-8 border-t border-white/20"
-        >
-          <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-white/80">
-              &copy; {new Date().getFullYear()} Information Consultancies & Installations (IC&I). All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <Link href="/privacy" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-sm text-white/80 hover:text-white transition-colors duration-300">
-                Terms of Service
-              </Link>
-            </div> 
+        {/* Copyright */}
+        <div className="border-t border-white/10">
+          <div className="py-6 text-center text-white/40 text-sm">
+            &copy; {new Date().getFullYear()} ARA Networks. All rights reserved.
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

@@ -10,14 +10,14 @@ const servicesData = [
     title: "JAGUAR5000 Cache Engine",
     description: "World's first 64-bit cache engine delivering 10Gbps throughput with 40-50% bandwidth savings. Features distributed cloud storage and proprietary MCT/WCOS technologies for unmatched performance.",
     servicelink: "/products/jaguar5000",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop"
+    image: "/jaguar.webp"
   },
   {
     id: 2,
     title: "ARA TS-Plus",
     description: "Advanced web content filtering solution supporting N x 10/100Gbps throughput. Centralized monitoring and management for blocking harmful websites and all known detours.",
     servicelink: "/products/ts-plus",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1968&auto=format&fit=crop"
+    image: "/ara-ts.webp"
   },
 ];
 

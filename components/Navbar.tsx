@@ -146,7 +146,7 @@ const Navbar = () => {
               }}
             >
               <Link
-                href="/services"
+                href="/products"
                 className="flex items-center text-white/90 hover:text-white transition-colors"
               >
                 What We Offer

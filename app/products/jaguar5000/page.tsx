@@ -158,6 +158,21 @@ export default function ProductPage() {
 
           {/* Content */}
           <div className="relative">
+            {/* Title Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-4xl mx-auto mb-12"
+            >
+              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent text-center">
+                JAGUAR5000: The Versatile Proxy Cache Solution
+              </h2>
+              <p className="text-gray-700 mb-12 text-lg leading-relaxed text-center">
+                Experience unparalleled performance and security with our advanced caching solution
+              </p>
+            </motion.div>
+
             {/* Image Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -177,61 +192,45 @@ export default function ProductPage() {
               </div>
             </motion.div>
 
-            {/* Text Content */}
-            <div className="max-w-4xl mx-auto">
+            {/* Features Grid */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
               >
-                <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text text-transparent text-center">
-                  JAGUAR5000: The Versatile Proxy Cache Solution
-                </h2>
-                <p className="text-gray-700 mb-12 text-lg leading-relaxed text-center">
-                  The JAGUAR5000 is a powerful and versatile proxy cache system designed to deliver exceptional performance and versatility. It is the ideal choice for:
-                </p>
-
-                {/* Features Grid */}
-                <div className="grid md:grid-cols-3 gap-6 mb-12">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                      <Check className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h3 className="font-semibold text-gray-900 text-center mb-2">ISPs</h3>
-                    <p className="text-gray-600 text-center">Enhancing Quality of Experience (QoE) and achieving significant bandwidth savings.</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                      <Check className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h3 className="font-semibold text-gray-900 text-center mb-2">CDN Providers</h3>
-                    <p className="text-gray-600 text-center">Leveraging it as a high-performance cache server to optimize content delivery.</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                      <Check className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h3 className="font-semibold text-gray-900 text-center mb-2">Enterprises</h3>
-                    <p className="text-gray-600 text-center">Utilizing it as a secure and reliable proxy for enhanced network protection.</p>
-                  </motion.div>
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-6 h-6 text-blue-600" />
                 </div>
+                <h3 className="font-semibold text-gray-900 text-center mb-2">ISPs</h3>
+                <p className="text-gray-600 text-center">Enhancing Quality of Experience (QoE) and achieving significant bandwidth savings.</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-center mb-2">CDN Providers</h3>
+                <p className="text-gray-600 text-center">Leveraging it as a high-performance cache server to optimize content delivery.</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-center mb-2">Enterprises</h3>
+                <p className="text-gray-600 text-center">Utilizing it as a secure and reliable proxy for enhanced network protection.</p>
               </motion.div>
             </div>
           </div>

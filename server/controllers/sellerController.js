@@ -4,10 +4,19 @@ import SellerService from "../repositories/seller-repo.js";
 // ✅ Create a new Seller (With Phones)
 export const createSellerController = async (req, res) => {
   try {
-    const { name, country, email, address, company, phones } = req.body;
+    const { name, country, email, address, company, region, phones } = req.body;
 
-    if (!name || !country || !Array.isArray(phones) || phones.length === 0) {
-      return res.status(400).json({ error: "Phone numbers are required" });
+    if (
+      !name ||
+      !country ||
+      !region ||
+      !Array.isArray(phones) ||
+      phones.length === 0
+    ) {
+      return res.status(400).json({
+        error:
+          "Name, country, region and at least one phone number are required",
+      });
     }
 
     const seller = await SellerService.create({
@@ -16,6 +25,7 @@ export const createSellerController = async (req, res) => {
       email,
       address,
       company,
+      region,
       phones,
     });
     res.status(201).json(seller);

@@ -12,6 +12,7 @@ import axios from "axios";
 import { apiClient } from "@/lib/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
+import _ from "lodash";
 
 const initialFormState = {
   name: "",
@@ -47,7 +48,8 @@ interface Seller {
   country: string;
   email?: string; // Optional, in case some sellers don't have emails
   address?: string; // Optional
-  company?: string; // Optional
+  company?: string;
+  region: string; // Optional
   phones: Phone[]; // Array of phone numbers
 }
 const PartnerPage = () => {
@@ -55,6 +57,7 @@ const PartnerPage = () => {
   const [country, setCountry] = useState("");
   const [formData, setFormData] = useState(initialFormState);
   const [open, setOpen] = useState(false);
+  const [sellersData, setSellersData] = useState<Seller[]>([]);
   const [alert, setAlert] = useState<{
     type: "success" | "error" | "info";
     message: string;
@@ -65,6 +68,7 @@ const PartnerPage = () => {
     queryFn: async () => {
       try {
         const response = await apiClient.get("/seller/");
+        setSellersData(sellers);
         console.log("Fetched Sellers:", response.data);
         return response.data; // Make sure response.data is an array
       } catch (error) {
@@ -288,97 +292,125 @@ const PartnerPage = () => {
               connect you with the nearest reseller.
             </p>
           </div> */}
+
           <hr className="my-2 mt-20" />
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center text-[50px] font-bold"
+            className="text-center text-[50px] font-bold text-blue-600"
           >
             Partners
           </motion.h1>
-          <div className="flex flex-wrap items-center justify-center w-[100vw] px-2 gap-4 mt-4">
+
+          <div className="flex flex-col items-center gap-16 mt-8">
             {isLoading && <p className="font-bold text-2xl">Loading...</p>}
+
             {sellers &&
-              sellers.map((seller: Seller, index: number) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200 max-h-[450px] min-h-[350px] w-[380px] justify-stretch hover:shadow-xl transition-shadow"
-                >
-                  {/* Seller Name */}
-                  <motion.h3
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
-                    className="text-xl font-semibold text-gray-900"
-                  >
-                    {seller.name}
-                  </motion.h3>
+              Object.entries(_.groupBy(sellers, "region")).map(
+                ([region, regionSellers]) => (
+                  <div key={region} className="w-full">
+                    <motion.h2
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-3xl font-bold text-center mb-8"
+                    >
+                      {region.replace("_", " ")}
+                    </motion.h2>
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                      {regionSellers.map((seller: Seller, index: number) => (
+                        <motion.div
+                          key={seller.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ scale: 1.02 }}
+                          className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200 max-h-[450px] min-h-[350px] w-[380px] justify-stretch hover:shadow-xl transition-shadow"
+                        >
+                          {/* Seller Name */}
+                          <motion.h3
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.2 }}
+                            className="text-xl font-semibold text-gray-900"
+                          >
+                            {seller.name}
+                          </motion.h3>
 
-                  {/* Location & Email */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                    className="text-gray-600"
-                  >
-                    📍 {seller.country}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.4 }}
-                    className="text-gray-600"
-                  >
-                    📧 {seller.email || "No Email"}
-                  </motion.p>
+                          {/* Location & Email */}
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.3 }}
+                            className="text-gray-600"
+                          >
+                            📍 {seller.country}
+                          </motion.p>
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.4 }}
+                            className="text-gray-600"
+                          >
+                            📧{" "}
+                            {seller.email ? (
+                              <a
+                                href={`mailto:${seller.email}`}
+                                className="hover:text-blue-800 underline transition-colors text-blue-600"
+                              >
+                                {seller.email}
+                              </a>
+                            ) : (
+                              "No Email"
+                            )}
+                          </motion.p>
 
-                  {/* Company & Address */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.5 }}
-                    className="text-gray-600"
-                  >
-                    🏢 {seller.company || "N/A"}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.6 }}
-                    className="text-gray-500 text-sm"
-                  >
-                    {seller.address || "No Address Available"}
-                  </motion.p>
+                          {/* Company & Address */}
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.5 }}
+                            className="text-gray-600"
+                          >
+                            🏢 {seller.company || "N/A"}
+                          </motion.p>
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.6 }}
+                            className="text-gray-500 text-sm"
+                          >
+                            {seller.address || "No Address Available"}
+                          </motion.p>
 
-                  {/* Phone Numbers */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.7 }}
-                    className="mt-2"
-                  >
-                    <h4 className="text-gray-700 font-medium">
-                      📞 Phone Numbers:
-                    </h4>
-                    {seller.phones.length > 0 ? (
-                      <ul className="list-disc pl-5 text-gray-700">
-                        {seller.phones.map((phone) => (
-                          <li key={phone.id} className="text-gray-600">
-                            {phone.number}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-gray-500">No Phone Numbers</p>
-                    )}
-                  </motion.div>
-                </motion.div>
-              ))}
+                          {/* Phone Numbers */}
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.7 }}
+                            className="mt-2"
+                          >
+                            <h4 className="text-gray-700 font-medium">
+                              📞 Phone Numbers:
+                            </h4>
+                            {seller.phones.length > 0 ? (
+                              <ul className="list-disc pl-5 text-gray-700">
+                                {seller.phones.map((phone) => (
+                                  <li key={phone.id} className="text-gray-600">
+                                    {phone.number}
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="text-gray-500">No Phone Numbers</p>
+                            )}
+                          </motion.div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              )}
           </div>
           <div className="flex flex-col items-center justify-center mt-12">
             <h1 className="text-[50px] font-bold">
@@ -396,7 +428,7 @@ const PartnerPage = () => {
               }}
               className={` text-white px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 transition-colors mt-8 ml-[46%] `}
             >
-              Contact Us
+              Apply Now
             </DialogTrigger>
             <DialogContent className="bg-gray-900 text-white max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
               <DialogHeader className="border-b border-gray-700 px-6 py-4">

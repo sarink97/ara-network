@@ -120,6 +120,7 @@ model Seller {
   country   String
   email     String?
   address   String?
+  region    Region 
   company   String?
   phones    Phone[]  @relation("SellerPhones")
 }
@@ -129,4 +130,14 @@ model Phone {
   number    String
   sellerId  Int
   seller    Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade, name: "SellerPhones")
+}
+
+enum Region {
+  NORTH_AMERICA
+  SOUTH_AMERICA
+  EUROPE
+  MIDDLE_EAST
+  AFRICA
+  ASIA
+  CARIBBEAN
 }

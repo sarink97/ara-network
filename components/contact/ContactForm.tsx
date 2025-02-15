@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { CheckCircle2 } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 // Define form data type
 interface FormData {
@@ -21,7 +22,11 @@ const ContactForm: React.FC = () => {
   const router = useRouter();
   const [isSending, setIsSending] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const [isVerified, setIsVerified] = useState(false);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error" | "info";
+    message: string;
+  } | null>(null);
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(2, "Name must be at least 2 characters")
@@ -49,6 +54,13 @@ const ContactForm: React.FC = () => {
   // Form submission handler
   const onSubmit = async (formData: FormData) => {
     setIsSending(true);
+    if (!isVerified) {
+      setAlert({
+        type: "error",
+        message: "Please complete the captcha verification first.",
+      });
+      return; // Stop form submission if captcha isn't verified
+    }
     try {
       const response = await axios.post(
         "http://localhost:8000/api/email/send-email",
@@ -57,11 +69,13 @@ const ContactForm: React.FC = () => {
       // Log the response to see what we're getting\
       console.log("Response received:", response);
       console.log("Response data:", response.data);
+      setIsVerified(false);
 
       // Check response.data.success instead of response.status
       if (response.data.success) {
         setShowSuccess(true);
         reset();
+        setIsVerified(false); // Reset verification state
         setTimeout(() => {
           setShowSuccess(false);
         }, 3000);
@@ -100,7 +114,6 @@ const ContactForm: React.FC = () => {
         <Description>
           We would love to hear from you! Fill out the form below.
         </Description>
-
         <InputWrapper>
           <Input
             type="text"
@@ -110,7 +123,6 @@ const ContactForm: React.FC = () => {
           />
           {errors.name && <ErrorMessage>{errors.name?.message}</ErrorMessage>}
         </InputWrapper>
-
         <InputWrapper>
           <Input
             type="email"
@@ -120,7 +132,6 @@ const ContactForm: React.FC = () => {
           />
           {errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
         </InputWrapper>
-
         <InputWrapper>
           <Input
             type="text"
@@ -132,7 +143,6 @@ const ContactForm: React.FC = () => {
             <ErrorMessage>{errors.subject?.message}</ErrorMessage>
           )}
         </InputWrapper>
-
         <InputWrapper>
           <Textarea
             placeholder="Your Message"
@@ -143,9 +153,45 @@ const ContactForm: React.FC = () => {
             <ErrorMessage>{errors.message?.message}</ErrorMessage>
           )}
         </InputWrapper>
-
-        <SubmitButton type="submit" disabled={isSending}>
-          {isSending ? "Sending..." : "Send Message"}
+        <div className="flex justify-center mb-4">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string}
+            onSuccess={(token: string) => {
+              setIsVerified(true);
+              console.log("Verification token:", token);
+            }}
+            onError={() => {
+              setIsVerified(false);
+              setAlert({
+                type: "error",
+                message: "Captcha verification failed. Please try again.",
+              });
+            }}
+            onExpire={() => {
+              setIsVerified(false);
+              setAlert({
+                type: "info",
+                message: "Captcha expired. Please verify again.",
+              });
+            }}
+          />
+        </div>
+        <SubmitButton
+          type="submit"
+          disabled={isSending || !isVerified}
+          className={`w-full ${
+            isSending || !isVerified ? "bg-blue-400" : "bg-blue-600"
+          } text-white py-3 px-4 rounded ${
+            isSending || !isVerified
+              ? "cursor-not-allowed"
+              : "hover:bg-blue-700"
+          } transition-colors font-medium`}
+        >
+          {isSending
+            ? "Sending..."
+            : isVerified === false
+            ? "Complete Captcha "
+            : "Send Message"}
         </SubmitButton>
       </FormWrapper>
     </Container>

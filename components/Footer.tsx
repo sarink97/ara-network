@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, Linkedin } from 'lucide-react';
+import { MapPin, Phone, Mail, Linkedin, Facebook } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const Footer = () => {  
@@ -41,7 +41,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { Icon: Linkedin, href: 'https://www.linkedin.com/company/ara-networks', label: 'LinkedIn' },
+    { Icon: Linkedin, href: 'https://www.linkedin.com/company/ara-networks/', label: 'LinkedIn' },
+    { Icon: Facebook, href: 'https://www.facebook.com/aranetworks.Co.Ltd/', label: 'Facebook' },
   ];
 
   const containerVariants = {
@@ -101,11 +102,18 @@ const Footer = () => {
                 ARA Networks is a leading provider of network security and optimization solutions, 
                 delivering innovative technology to enhance network performance and security.
               </p>
-              <div className="pt-2">
-                <Link href="https://www.linkedin.com/company/ara-networks" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm">
-                  <Linkedin className="w-5 h-5" />
-                  Follow us on LinkedIn
-                </Link>
+              <div className="pt-2 flex gap-4">
+                {socialLinks.map(({ Icon, href, label }) => (
+                  <Link 
+                    key={label}
+                    href={href} 
+                    className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </Link>
+                ))}
               </div>
             </motion.div>
           </motion.div>

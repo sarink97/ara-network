@@ -102,6 +102,13 @@ const Footer = () => {
                 ARA Networks is a leading provider of network security and optimization solutions, 
                 delivering innovative technology to enhance network performance and security.
               </p>
+<<<<<<< HEAD
+              <div className="pt-2">
+                <Link href="https://www.linkedin.com/company/ara-networks" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm">
+                  <Linkedin className="w-5 h-5" />
+                  Follow us on LinkedIn
+                </Link>
+=======
               <div className="pt-2 flex gap-4">
                 {socialLinks.map(({ Icon, href, label }) => (
                   <Link 
@@ -114,6 +121,7 @@ const Footer = () => {
                     <Icon className="w-5 h-5" />
                   </Link>
                 ))}
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </div>
             </motion.div>
           </motion.div>

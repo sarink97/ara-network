@@ -1,7 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Network, Shield, Globe, Database, Check, Server, Code } from "lucide-react";
+import {
+  Network,
+  Shield,
+  Globe,
+  Database,
+  Check,
+  Server,
+  Code,
+} from "lucide-react";
 import Image from "next/image";
 import CoreTechnologiesDiagram from "@/components/CoreTechnologiesDiagram";
 
@@ -9,33 +17,37 @@ const stats = [
   { value: "10x", label: "Faster Content Delivery", icon: Network },
   { value: "50%", label: "Bandwidth Savings", icon: Database },
   { value: "99.9%", label: "Uptime", icon: Shield },
-  { value: "24/7", label: "Support", icon: Globe }
+  { value: "24/7", label: "Support", icon: Globe },
 ];
 
 const solutions = [
   {
     icon: Network,
     title: "JAGUAR",
-    description: "Our flagship caching solution that revolutionizes web, media, and mobile performance, ensuring faster and more efficient content delivery.",
+    description:
+      "Our flagship caching solution that revolutionizes web, media, and mobile performance, ensuring faster and more efficient content delivery.",
   },
   {
     icon: Shield,
     title: "TS-Plus Web Filtering",
-    description: "An advanced solution designed to enhance security and optimize network traffic by filtering unwanted or harmful web content.",
-  }
+    description:
+      "An advanced solution designed to enhance security and optimize network traffic by filtering unwanted or harmful web content.",
+  },
 ];
 
 const technologies = [
   {
     icon: Server,
     title: "JAGUAR OS",
-    description: "A caching-only OS designed to handle massive and overused network traffic effortlessly. It enhances web content delivery speed, delivering an unparalleled user experience while maximizing network efficiency.",
+    description:
+      "A caching-only OS designed to handle massive and overused network traffic effortlessly. It enhances web content delivery speed, delivering an unparalleled user experience while maximizing network efficiency.",
   },
   {
     icon: Code,
     title: "NMP",
-    description: "A high-performance traffic monitoring solution built for backbone networks. Powered by advanced DPI (Deep Packet Inspection) technology, NMP ensures network transparency and efficient management of large-scale traffic.",
-  }
+    description:
+      "A high-performance traffic monitoring solution built for backbone networks. Powered by advanced DPI (Deep Packet Inspection) technology, NMP ensures network transparency and efficient management of large-scale traffic.",
+  },
 ];
 
 export default function AboutUsPage() {
@@ -46,9 +58,13 @@ export default function AboutUsPage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-30 mix-blend-soft-light"></div>
           <div className="absolute inset-0 bg-gradient-to-br from-[#3785CC]/10 via-transparent to-transparent"></div>
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: 'radial-gradient(circle at 50% 120%, rgba(55, 133, 204, 0.3), transparent)'
-          }}></div>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 50% 120%, rgba(55, 133, 204, 0.3), transparent)",
+            }}
+          ></div>
         </div>
 
         {/* Floating Elements */}
@@ -75,7 +91,12 @@ export default function AboutUsPage() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
+<<<<<<< HEAD
+                Since 1999, we&apos;ve been dedicated to solving operators&apos;
+                toughest challenges in an era of explosive internet growth{" "}
+=======
                 Since 1999, we&apos;ve been dedicated to solving operators&apos; toughest challenges in an era of explosive internet growth
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
             </motion.div>
           </div>
@@ -118,7 +139,15 @@ export default function AboutUsPage() {
                 Cutting-Edge Solutions, Trusted Globally
               </h2>
               <p className="text-gray-700 mb-8 text-lg leading-relaxed">
+<<<<<<< HEAD
+                Founded in 1999 by a team of visionary computer scientists, ARA
+                Networks has been dedicated to solving operators&apos; toughest
+                challenges. Today, we&apos;re a global leader in web, media, and
+                mobile caching solutions, committed to driving innovation and
+                performance for businesses worldwide.
+=======
                 Founded in 1999 by a team of visionary computer scientists, ARA Networks has been dedicated to solving operators&apos; toughest challenges. Today, we&apos;re a global leader in web, media, and mobile caching solutions, committed to driving innovation and performance for businesses worldwide.
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
               <div className="space-y-6">
                 {solutions.map((solution, index) => (
@@ -136,7 +165,9 @@ export default function AboutUsPage() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{solution.title}</h3>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          {solution.title}
+                        </h3>
                         <p className="text-gray-600">{solution.description}</p>
                       </div>
                     </div>
@@ -173,7 +204,9 @@ export default function AboutUsPage() {
                 Core Technologies: Redefining Network Efficiency
               </h2>
               <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
-                At ARA Networks, our independently developed operating system (OS) technology delivers unmatched performance and reliability for optimal network traffic management.
+                At ARA Networks, our independently developed operating system
+                (OS) technology delivers unmatched performance and reliability
+                for optimal network traffic management.
               </p>
             </motion.div>
 
@@ -186,7 +219,11 @@ export default function AboutUsPage() {
               >
                 <CoreTechnologiesDiagram />
               </motion.div>
+<<<<<<< HEAD
+
+=======
               
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               <div className="space-y-6">
                 {technologies.map((tech, index) => (
                   <motion.div
@@ -203,7 +240,13 @@ export default function AboutUsPage() {
                         </div>
                       </div>
                       <div>
+<<<<<<< HEAD
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          {tech.title}
+                        </h3>
+=======
                         <h3 className="text-xl font-semibold text-gray-900 mb-2">{tech.title}</h3>
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
                         <p className="text-gray-600">{tech.description}</p>
                       </div>
                     </div>
@@ -225,7 +268,11 @@ export default function AboutUsPage() {
                 Globally Recognized Leadership
               </h2>
               <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
-                ARA Networks is proud to be recognized as one of the Top 6 Global Companies in the Transparent Caching Market, as highlighted by Frost & Sullivan in their analysis. This acknowledgment reflects our unwavering commitment to innovation, reliability, and exceptional service.
+                ARA Networks is proud to be recognized as one of the Top 6
+                Global Companies in the Transparent Caching Market, as
+                highlighted by Frost & Sullivan in their analysis. This
+                acknowledgment reflects our unwavering commitment to innovation,
+                reliability, and exceptional service.
               </p>
             </div>
           </motion.div>

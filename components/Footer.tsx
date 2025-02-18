@@ -1,48 +1,59 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, Phone, Mail, Linkedin, Facebook } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Linkedin, Facebook } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const Footer = () => {  
+const Footer = () => {
   const footerLinks = {
     products: {
-      title: 'Products',
+      title: "Products",
       links: [
-        { text: 'JAGUAR5000', href: '/products/jaguar5000' },
-        { text: 'TS-Plus', href: '/products/ts-plus' },
-        { text: 'Partner Program', href: '/partner' },
+        { text: "JAGUAR5000", href: "/products/jaguar5000" },
+        { text: "TS-Plus", href: "/products/ts-plus" },
+        { text: "Partner Program", href: "/partner" },
       ],
     },
     company: {
-      title: 'Company',
+      title: "Company",
       links: [
-        { text: 'About Us', href: '/about' },
-        { text: 'Contact', href: '/contact' },
+        { text: "About Us", href: "/about" },
+        { text: "Contact", href: "/contact" },
       ],
     },
   };
 
   const contactInfo = [
-    { 
-      Icon: MapPin, 
-      text: ['BOJEON BLDG. 15F, 70-13, NONHYUN-DONG', 'GANGNAM-GU, SEOUL, KOREA 135-010'],
-      multiline: true 
+    {
+      Icon: MapPin,
+      text: [
+        "BOJEON BLDG. 15F, 70-13, NONHYUN-DONG",
+        "GANGNAM-GU, SEOUL, KOREA 135-010",
+      ],
+      multiline: true,
     },
-    { 
-      Icon: Phone, 
-      text: ['Tel.: +82 2 3446 6070', 'Fax: +82 2 3445 9099'],
-      multiline: true 
+    {
+      Icon: Phone,
+      text: ["Tel.: +82 2 3446 6070", "Fax: +82 2 3445 9099"],
+      multiline: true,
     },
-    { Icon: Mail, text: 'info@aranetworks.com' },
+    { Icon: Mail, text: "info@aranetworks.com" },
   ];
 
   const socialLinks = [
-    { Icon: Linkedin, href: 'https://www.linkedin.com/company/ara-networks/', label: 'LinkedIn' },
-    { Icon: Facebook, href: 'https://www.facebook.com/aranetworks.Co.Ltd/', label: 'Facebook' },
+    {
+      Icon: Linkedin,
+      href: "https://www.linkedin.com/company/ara-networks/",
+      label: "LinkedIn",
+    },
+    {
+      Icon: Facebook,
+      href: "https://www.facebook.com/aranetworks.Co.Ltd/",
+      label: "Facebook",
+    },
   ];
 
   const containerVariants = {
@@ -64,13 +75,13 @@ const Footer = () => {
       transition: { duration: 0.5 },
     },
   };
-  
+
   const pathname = usePathname();
 
-  if (pathname.startsWith('/admin')) {
+  if (pathname.startsWith("/admin")) {
     return null;
   }
-  
+
   return (
     <footer className="bg-gradient-to-b from-[#0B1B33] to-[#0B1B33]/95 relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -81,7 +92,7 @@ const Footer = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-12 py-12">
           {/* Company Info */}
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -90,38 +101,27 @@ const Footer = () => {
           >
             <motion.div variants={itemVariants} className="space-y-6">
               <Link href="/" className="block -ml-3">
-                <Image 
-                  src="/footer-logo.webp" 
-                  alt="ARA Networks Logo" 
+                <Image
+                  src="/footer-logo.webp"
+                  alt="ARA Networks Logo"
                   width={300}
                   height={120}
                   className="h-9 w-auto"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">
-                ARA Networks is a leading provider of network security and optimization solutions, 
-                delivering innovative technology to enhance network performance and security.
+                ARA Networks is a leading provider of network security and
+                optimization solutions, delivering innovative technology to
+                enhance network performance and security.
               </p>
-<<<<<<< HEAD
               <div className="pt-2">
-                <Link href="https://www.linkedin.com/company/ara-networks" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm">
+                <Link
+                  href="https://www.linkedin.com/company/ara-networks"
+                  className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm"
+                >
                   <Linkedin className="w-5 h-5" />
                   Follow us on LinkedIn
                 </Link>
-=======
-              <div className="pt-2 flex gap-4">
-                {socialLinks.map(({ Icon, href, label }) => (
-                  <Link 
-                    key={label}
-                    href={href} 
-                    className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon className="w-5 h-5" />
-                  </Link>
-                ))}
->>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </div>
             </motion.div>
           </motion.div>
@@ -133,17 +133,26 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/products/jaguar5000" className="text-white/60 hover:text-white transition-colors text-sm">
+                <Link
+                  href="/products/jaguar5000"
+                  className="text-white/60 hover:text-white transition-colors text-sm"
+                >
                   JAGUAR5000
                 </Link>
               </li>
               <li>
-                <Link href="/products/ts-plus" className="text-white/60 hover:text-white transition-colors text-sm">
+                <Link
+                  href="/products/ts-plus"
+                  className="text-white/60 hover:text-white transition-colors text-sm"
+                >
                   TS-Plus
                 </Link>
               </li>
               <li>
-                <Link href="/partner" className="text-white/60 hover:text-white transition-colors text-sm">
+                <Link
+                  href="/partner"
+                  className="text-white/60 hover:text-white transition-colors text-sm"
+                >
                   Partner Program
                 </Link>
               </li>
@@ -157,12 +166,18 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-white/60 hover:text-white transition-colors text-sm">
+                <Link
+                  href="/about"
+                  className="text-white/60 hover:text-white transition-colors text-sm"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-white/60 hover:text-white transition-colors text-sm">
+                <Link
+                  href="/contact"
+                  className="text-white/60 hover:text-white transition-colors text-sm"
+                >
                   Contact
                 </Link>
               </li>
@@ -170,7 +185,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"

@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 import { apiClient } from "@/lib/api";
 
 interface Category {
@@ -287,10 +288,12 @@ export default function NewBlogPost() {
                     animate={{ opacity: 1 }}
                     className="relative aspect-video"
                   >
-                    <img
+                    <Image
                       src={imagePreview}
                       alt="Preview"
                       className="w-full h-full object-cover rounded-lg"
+                      width={800}
+                      height={400}
                     />
                     <button
                       onClick={(e) => {

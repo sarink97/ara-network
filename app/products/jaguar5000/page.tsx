@@ -104,7 +104,7 @@ export default function ProductPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-12"
+              className="mt-12 flex gap-4 justify-center"
             >
               <a
                 href="/downloads/jaguar5000-datasheet.pdf"
@@ -112,6 +112,14 @@ export default function ProductPage() {
                 className="inline-flex items-center px-8 py-4 rounded-full text-lg font-medium text-white bg-gradient-to-r from-[#1E3A8A] to-[#3785CC] hover:from-[#3785CC] hover:to-[#60A5FA] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Download Datasheet
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              <a
+                href="/downloads/jaguar5000.pdf"
+                download="JAGUAR5000.pdf"
+                className="inline-flex items-center px-8 py-4 rounded-full text-lg font-medium text-white bg-gradient-to-r from-[#3785CC] to-[#60A5FA] hover:from-[#1E3A8A] hover:to-[#3785CC] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                Download Product Guide
                 <ArrowRight className="ml-2 w-5 h-5" />
               </a>
             </motion.div>
@@ -132,7 +140,7 @@ export default function ProductPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E3A8A] to-[#3785CC] mb-4">
                   <stat.icon className="w-6 h-6 text-white" />

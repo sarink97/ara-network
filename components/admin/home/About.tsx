@@ -17,6 +17,7 @@ import LoadingComponent from "../LoadingComponent";
 import ErrorComponent from "../ErrorComponent";
 import { apiClient } from "@/lib/api";
 import axios from "axios";
+import Image from "next/image";
 
 interface Feature {
   title: string;
@@ -585,30 +586,33 @@ export default function About() {
                   accept="image/*"
                   className="hidden"
                 />
-                {imagePreview || formData.img ? (
-                  <div className="relative aspect-video">
-                    <img
-                      src={imagePreview || formData.img}
-                      alt="Preview"
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setImagePreview("");
-                        setImageUrl("");
-                        setShowUrlInput(false);
-                        setFormData((prev) => ({ ...prev, img: undefined }));
-                        if (fileInputRef.current) {
-                          fileInputRef.current.value = "";
-                        }
-                      }}
-                      className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ) : (
+                {(imagePreview || formData.img) && (
+                  <Image
+                    src={imagePreview || formData.img || '/placeholder.jpg'}
+                    alt="Preview"
+                    className="w-full h-full object-cover rounded-lg"
+                    width={800}
+                    height={400}
+                  />
+                )}
+                {(imagePreview || formData.img) && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setImagePreview("");
+                      setImageUrl("");
+                      setShowUrlInput(false);
+                      setFormData((prev) => ({ ...prev, img: undefined }));
+                      if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                      }
+                    }}
+                    className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+                {!imagePreview && !formData.img && (
                   <div className="text-center">
                     {showUrlInput ? (
                       <div

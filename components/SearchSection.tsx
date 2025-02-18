@@ -12,8 +12,13 @@ export const SearchSection = () => (
       </button>
     </div>
     <p className="mt-4 text-gray-600">
+<<<<<<< HEAD
       Don&apos;t see your country? Fill out our contact form and we&apos;ll
       connect you with the nearest reseller.
+=======
+      Don&apos;t see your country? Fill out our contact form and we&apos;ll connect you
+      with the nearest reseller.
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
     </p>
   </div>
 );

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Pencil,
   Trash2,
@@ -10,7 +11,7 @@ import {
   Filter,
   Clock,
   Eye,
-  Image as ImageIcon,
+  ImageIcon,
   AlertCircle,
   CheckCircle,
   XCircle,
@@ -65,10 +66,29 @@ export default function BlogsPage() {
     blogId: null,
   });
 
+  const fetchBlogs = useCallback(async () => {
+    try {
+      const response = await apiClient.get("/api/blog/posts");
+      setBlogs(response.data);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  }, []);
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await apiClient.get("/api/blog/categories");
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  }, []);
+
   useEffect(() => {
     fetchBlogs();
     fetchCategories();
-  }, []);
+  }, [fetchBlogs, fetchCategories]);
+
   useEffect(() => {
     console.log(blogs);
   }, [blogs]);
@@ -82,32 +102,6 @@ export default function BlogsPage() {
 
   const showAlert = (type: Alert["type"], message: string) => {
     setAlert({ type, message });
-  };
-
-  const fetchBlogs = async () => {
-    try {
-      const response = await apiClient.get("/api/blog");
-      console.log(response);
-
-      if (response.statusText.toLowerCase() != "ok") {
-        throw new Error("Failed to fetch blogs");
-      }
-      setBlogs(response.data.posts || []);
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-      showAlert("error", "Failed to fetch blogs");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchCategories = async () => {
-    try {
-      const response = await apiClient.get("/api/blog/categories");
-      setCategories(response.data.categories || []);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
   };
 
   const initiateDelete = (id: number) => {
@@ -348,10 +342,12 @@ export default function BlogsPage() {
                 >
                   {blog.image && (
                     <div className="relative h-48 bg-gray-800">
-                      <img
+                      <Image
                         src={blog.image}
                         alt={blog.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover rounded-lg"
+                        width={800}
+                        height={400}
                       />
                     </div>
                   )}

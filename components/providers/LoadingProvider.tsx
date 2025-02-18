@@ -41,7 +41,7 @@ export const LoadingProvider = (props: LoadingProps) => {
       if (isClicked || path == props.href) {
         setIsLoading(path != props.href);
       }
-    }, [isClicked, path]);
+    }, [isClicked, path, props.href]);
     return (
       <Link
         href={props.href}

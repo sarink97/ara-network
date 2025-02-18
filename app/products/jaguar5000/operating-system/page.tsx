@@ -158,6 +158,7 @@ export default function OperatingSystemPage() {
                 World-Class Performance
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
+<<<<<<< HEAD
                 Powered by ARA&apos;s proprietary and customized operating
                 system, JAGUAR5000 delivers world-class caching performance and
                 reliability. Proven by extensive benchmark testing, it is
@@ -170,6 +171,10 @@ export default function OperatingSystemPage() {
                 reliability. Proven by extensive benchmark testing, it is
                 recognized as the world&apos;s highest-performing cache
                 solution, trusted in diverse deployment environments.
+=======
+                Powered by ARA&apos;s proprietary and customized operating system, JAGUAR5000 delivers world-class caching performance and reliability. 
+                Proven by extensive benchmark testing, it is recognized as the world&apos;s highest-performing cache solution, trusted in diverse deployment environments.
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
             </motion.div>
           </div>
@@ -236,8 +241,12 @@ export default function OperatingSystemPage() {
               Revolutionary Technologies
             </h2>
             <p className="text-gray-600">
+<<<<<<< HEAD
               Discover the cutting-edge technologies that power
               JAGUAR5000&apos;s exceptional performance
+=======
+              Discover the cutting-edge technologies that power JAGUAR5000&apos;s exceptional performance
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
             </p>
           </motion.div>
 

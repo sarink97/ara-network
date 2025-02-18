@@ -13,6 +13,7 @@ import {
   Tag,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { apiClient } from "@/lib/api";
@@ -55,21 +56,6 @@ export default function EditBlogPost() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    fetchCategories();
-    fetchBlogPost();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await apiClient.get("/api/blog/categories");
-
-      setCategories(response.data.categories || []);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
-
   const fetchBlogPost = useCallback(async () => {
     try {
       const response = await apiClient.get(`/api/blog/post/${params.id}`, {
@@ -93,9 +79,20 @@ export default function EditBlogPost() {
       console.error("Error fetching blog post:", error);
       router.push("/admin/blogs");
     }
-  }, [params.id]);
+  }, [params.id, router]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await apiClient.get("/api/blog/categories");
+
+      setCategories(response.data.categories || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   useEffect(() => {
+    fetchCategories();
     fetchBlogPost();
   }, [fetchBlogPost]);
 
@@ -297,10 +294,12 @@ export default function EditBlogPost() {
                     animate={{ opacity: 1 }}
                     className="relative aspect-video"
                   >
-                    <img
+                    <Image
                       src={imagePreview}
                       alt="Preview"
                       className="w-full h-full object-cover rounded-lg"
+                      width={800}
+                      height={400}
                     />
                     <button
                       onClick={(e) => {

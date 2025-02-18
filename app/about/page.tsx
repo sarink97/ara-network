@@ -91,8 +91,12 @@ export default function AboutUsPage() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
+<<<<<<< HEAD
                 Since 1999, we&apos;ve been dedicated to solving operators&apos;
                 toughest challenges in an era of explosive internet growth{" "}
+=======
+                Since 1999, we&apos;ve been dedicated to solving operators&apos; toughest challenges in an era of explosive internet growth
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
             </motion.div>
           </div>
@@ -135,11 +139,15 @@ export default function AboutUsPage() {
                 Cutting-Edge Solutions, Trusted Globally
               </h2>
               <p className="text-gray-700 mb-8 text-lg leading-relaxed">
+<<<<<<< HEAD
                 Founded in 1999 by a team of visionary computer scientists, ARA
                 Networks has been dedicated to solving operators&apos; toughest
                 challenges. Today, we&apos;re a global leader in web, media, and
                 mobile caching solutions, committed to driving innovation and
                 performance for businesses worldwide.
+=======
+                Founded in 1999 by a team of visionary computer scientists, ARA Networks has been dedicated to solving operators&apos; toughest challenges. Today, we&apos;re a global leader in web, media, and mobile caching solutions, committed to driving innovation and performance for businesses worldwide.
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
               <div className="space-y-6">
                 {solutions.map((solution, index) => (
@@ -211,7 +219,11 @@ export default function AboutUsPage() {
               >
                 <CoreTechnologiesDiagram />
               </motion.div>
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               <div className="space-y-6">
                 {technologies.map((tech, index) => (
                   <motion.div
@@ -228,9 +240,13 @@ export default function AboutUsPage() {
                         </div>
                       </div>
                       <div>
+<<<<<<< HEAD
                         <h3 className="text-xl font-semibold text-gray-900 mb-2">
                           {tech.title}
                         </h3>
+=======
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">{tech.title}</h3>
+>>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
                         <p className="text-gray-600">{tech.description}</p>
                       </div>
                     </div>

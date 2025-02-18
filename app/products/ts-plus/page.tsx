@@ -138,8 +138,8 @@ export default function TsPlusPage() {
               className="mt-12"
             >
               <motion.a
-                href="/downloads/ts-plus-datasheet.pdf"
-                download="TS-Plus-Datasheet.pdf"
+                href="/downloads/ara-ts-plus.pdf"
+                download="ara-ts-plus.pdf"
                 className="inline-flex items-center px-8 py-4 rounded-full text-lg font-medium text-white bg-gradient-to-r from-[#1E3A8A] to-[#3785CC] hover:from-[#3785CC] hover:to-[#60A5FA] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

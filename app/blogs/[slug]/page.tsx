@@ -4,7 +4,8 @@ import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Calendar, Tag, ArrowLeft, Share2 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState, useCallback } from "react";
 import { apiClient } from "@/lib/api";
 
 interface Author {
@@ -35,13 +36,7 @@ export default function BlogPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (slug) {
-      fetchBlogPost();
-    }
-  }, [slug]);
-
-  const fetchBlogPost = async () => {
+  const fetchBlogPost = useCallback(async () => {
     try {
       const decodedSlug = decodeURIComponent(slug as string);
       console.log("Fetching post with slug:", decodedSlug);
@@ -66,7 +61,13 @@ export default function BlogPost() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
+
+  useEffect(() => {
+    if (slug) {
+      fetchBlogPost();
+    }
+  }, [fetchBlogPost, slug]);
 
   if (loading) {
     return (
@@ -193,10 +194,12 @@ export default function BlogPost() {
           transition={{ delay: 0.2 }}
         >
           <div className="aspect-[21/9] rounded-xl overflow-hidden shadow-2xl">
-            <img
+            <Image
               src={post.image}
               alt={post.title}
-              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+              className="w-full h-full object-cover rounded-lg"
+              width={1200}
+              height={600}
             />
           </div>
         </motion.div>

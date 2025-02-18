@@ -256,7 +256,7 @@ export default function ScalabilityPage() {
               Key Benefits
             </h2>
             <p className="text-gray-600">
-              Discover how JAGUAR5000's scalability transforms your
+              Discover how JAGUAR5000&apos;s scalability transforms your
               infrastructure
             </p>
           </motion.div>

@@ -245,7 +245,7 @@ const PartnerPage = () => {
               Join our global network of innovators and market leaders
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              We're here to help you achieve your business goals. Get in touch
+              We&apos;re here to help you achieve your business goals. Get in touch
               with us today.
             </p>
           </motion.div>

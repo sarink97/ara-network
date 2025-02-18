@@ -75,7 +75,7 @@ export default function AboutUsPage() {
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-light leading-relaxed">
-                Since 1999, we've been dedicated to solving operators' toughest challenges in an era of explosive internet growth
+                Since 1999, we&apos;ve been dedicated to solving operators&apos; toughest challenges in an era of explosive internet growth
               </p>
             </motion.div>
           </div>
@@ -118,7 +118,7 @@ export default function AboutUsPage() {
                 Cutting-Edge Solutions, Trusted Globally
               </h2>
               <p className="text-gray-700 mb-8 text-lg leading-relaxed">
-                Founded in 1999 by a team of visionary computer scientists, ARA Networks has been dedicated to solving operators' toughest challenges. Today, we're a global leader in web, media, and mobile caching solutions, committed to driving innovation and performance for businesses worldwide.
+                Founded in 1999 by a team of visionary computer scientists, ARA Networks has been dedicated to solving operators&apos; toughest challenges. Today, we&apos;re a global leader in web, media, and mobile caching solutions, committed to driving innovation and performance for businesses worldwide.
               </p>
               <div className="space-y-6">
                 {solutions.map((solution, index) => (

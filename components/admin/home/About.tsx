@@ -270,7 +270,7 @@ export default function About() {
     );
   }
 
-  const aboutUsContent = aboutData?.about?.[0]?.aboutUs;
+  const aboutUsContent = aboutData?.home?.[0]?.aboutUs;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f1035] to-[#2e3267] p-8">

@@ -12,8 +12,8 @@ export const SearchSection = () => (
       </button>
     </div>
     <p className="mt-4 text-gray-600">
-      Don't see your country? Fill out our contact form and we'll connect you
-      with the nearest reseller.
+      Don&apos;t see your country? Fill out our contact form and we&apos;ll
+      connect you with the nearest reseller.
     </p>
   </div>
 );

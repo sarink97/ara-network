@@ -172,16 +172,8 @@ export default function TechnologiesPage() {
                 Revolutionary Cache Technology
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-<<<<<<< HEAD
-                The JAGUAR5000 is powered by the world&apos;s first 64-bit cache
-                engine, delivering unmatched performance and continuous
-                innovation. Its hardware-independent software design ensures
-                greater flexibility in storage configuration, enabling linear
-                performance growth with hardware upgrades.
-=======
                 The JAGUAR5000 is powered by the world&apos;s first 64-bit cache engine, delivering unmatched performance and continuous innovation. 
                 Its hardware-independent software design ensures greater flexibility in storage configuration, enabling linear performance growth with hardware upgrades.
->>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
               </p>
             </motion.div>
           </div>

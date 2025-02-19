@@ -245,13 +245,8 @@ const PartnerPage = () => {
               Join our global network of innovators and market leaders
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-<<<<<<< HEAD
-              We&apos;re here to help you achieve your business goals. Get in
-              touch with us today.
-=======
               We&apos;re here to help you achieve your business goals. Get in touch
               with us today.
->>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
             </p>
           </motion.div>
         </div>

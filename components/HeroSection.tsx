@@ -5,13 +5,8 @@ export const HeroSection = () => (
         Let&apos;s Connect and Create Something Amazing Together
       </h1>
       <p className="text-lg text-center text-gray-200 max-w-2xl mx-auto">
-<<<<<<< HEAD
-        We&apos;re here to help you achieve your business goals. Get in touch
-        with us today.
-=======
         We&apos;re here to help you achieve your business goals. Get in touch with us
         today.
->>>>>>> dec896df17a190cfe3da28375f7892fe1bfd24a2
       </p>
     </div>
   </div>

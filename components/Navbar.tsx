@@ -109,7 +109,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full h-[12vh] z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-gray-900/80 backdrop-blur-lg border-b border-white/10"
           : "bg-transparent"
@@ -121,9 +121,9 @@ const Navbar = () => {
             <Image
               src="/logo_ow.webp"
               alt="IC&I Logo"
-              width={180}
-              height={70}
-              className="h-16 w-auto transition-all duration-300"
+              width={200}
+              height={100}
+              className="h-20 w-auto transition-all duration-300"
             />
           </Link>
 

@@ -1,8 +1,17 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
-import { Server, Shield, Network, ArrowRight, Monitor, Scale, Globe, Check } from "lucide-react";
+import {
+  Server,
+  Shield,
+  Network,
+  ArrowRight,
+  Monitor,
+  Scale,
+  Globe,
+  Check,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,17 +19,19 @@ const products = [
   {
     id: 1,
     title: "JAGUAR5000 Cache Engine",
-    description: "World's first 64-bit cache engine delivering 10Gbps throughput with 40-50% bandwidth savings. Features distributed cloud storage and proprietary MCT/WCOS technologies for unmatched performance.",
+    description:
+      "World's first 64-bit cache engine delivering 10Gbps throughput with 40-50% bandwidth savings. Features distributed cloud storage and proprietary MCT/WCOS technologies for unmatched performance.",
     image: "/jaguar.webp",
-    link: "/products/jaguar5000"
+    link: "/products/jaguar5000",
   },
   {
     id: 2,
     title: "ARA TS-Plus",
-    description: "Advanced web content filtering solution supporting N x 10/100Gbps throughput. Centralized monitoring and management for blocking harmful websites and all known detours.",
+    description:
+      "Advanced web content filtering solution supporting N x 10/100Gbps throughput. Centralized monitoring and management for blocking harmful websites and all known detours.",
     image: "/ara-ts.webp",
-    link: "/products/ts-plus"
-  }
+    link: "/products/ts-plus",
+  },
 ];
 
 const keyPoints = [
@@ -29,14 +40,14 @@ const keyPoints = [
   "Enterprise Security",
   "Cloud Integration",
   "24/7 Technical Support",
-  "Scalable Architecture"
+  "Scalable Architecture",
 ];
 
 const stats = [
   { value: "10+", label: "Years Experience", icon: Monitor },
   { value: "2", label: "Core Products", icon: Server },
   { value: "99.9%", label: "Uptime", icon: Shield },
-  { value: "24/7", label: "Support", icon: Network }
+  { value: "24/7", label: "Support", icon: Network },
 ];
 
 export default function ProductsPage() {
@@ -50,16 +61,8 @@ export default function ProductsPage() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-500/30 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto mt-12 px-4 py-24 sm:px-6 lg:px-8">
           <div className="text-center">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block text-blue-400 text-sm uppercase tracking-wider px-4 py-2 rounded-full border border-blue-400/20 backdrop-blur-sm mb-8"
-            >
-              Our Solutions
-            </motion.span>
-            
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,7 +78,8 @@ export default function ProductsPage() {
               transition={{ delay: 0.2 }}
               className="max-w-3xl mx-auto text-xl text-gray-300 mb-12"
             >
-              Cutting-edge technology solutions designed to enhance your business performance and security
+              Cutting-edge technology solutions designed to enhance your
+              business performance and security
             </motion.p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
@@ -101,7 +105,7 @@ export default function ProductsPage() {
         {/* Background Pattern */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.015]" />
-          
+
           {/* Animated Background Elements */}
           <div className="absolute top-20 left-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float" />
           <div className="absolute top-40 right-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float-delay-1" />
@@ -112,7 +116,9 @@ export default function ProductsPage() {
           {/* Section Title */}
           <div className="flex items-center gap-4 mb-16">
             <div className="h-[2px] w-8 bg-blue-600"></div>
-            <h3 className="text-lg font-semibold text-blue-600 tracking-wide uppercase">Featured Products</h3>
+            <h3 className="text-lg font-semibold text-blue-600 tracking-wide uppercase">
+              Featured Products
+            </h3>
             <div className="h-[2px] flex-1 bg-gray-200"></div>
           </div>
 
@@ -124,7 +130,7 @@ export default function ProductsPage() {
                 <div className="relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 h-full">
                   {/* Gradient Border */}
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-gray-200/50" />
-                  
+
                   {/* Content Container */}
                   <div className="relative rounded-2xl p-8 flex flex-col h-full">
                     {/* Image and Number */}

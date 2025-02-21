@@ -233,20 +233,12 @@ const PartnerPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-6 inline-block"
-            >
-              Partners
-            </motion.span>
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-10">
+            <h1 className="text-6xl mt-10 font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-10">
               Join our global network of innovators and market leaders
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              We&apos;re here to help you achieve your business goals. Get in touch
-              with us today.
+              We&apos;re here to help you achieve your business goals. Get in
+              touch with us today.
             </p>
           </motion.div>
         </div>

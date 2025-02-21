@@ -127,62 +127,82 @@ const Footer = () => {
           </motion.div>
 
           {/* Products Column */}
-          <div className="lg:col-span-2">
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              PRODUCTS
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/products/jaguar5000"
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  JAGUAR5000
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/ts-plus"
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  TS-Plus
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/partner"
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  Partner Program
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <motion.div variants={itemVariants}>
+              <div className="lg:col-span-2">
+                <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                  PRODUCTS
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/products/jaguar5000"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      JAGUAR5000
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products/ts-plus"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      TS-Plus
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/partner"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      Partner Program
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
 
           {/* Company Column */}
-          <div className="lg:col-span-2">
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              COMPANY
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-white/60 hover:text-white transition-colors text-sm"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <motion.div variants={itemVariants}>
+              <div className="lg:col-span-2">
+                <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                  COMPANY
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/about"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
 
           {/* Contact Info */}
           <motion.div

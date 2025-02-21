@@ -13,7 +13,7 @@ export default function Hero() {
       await controls.start({
         scale: [1, 1.02, 0.98, 1],
         rotate: [0, 1, -1, 0],
-        transition: { duration: 2, ease: "easeInOut" }
+        transition: { duration: 2, ease: "easeInOut" },
       });
     };
     sequence();
@@ -22,12 +22,12 @@ export default function Hero() {
   return (
     <div className="relative min-h-screen bg-[#0B1B33] overflow-hidden">
       {/* Background Grid */}
-      <motion.div 
-        className="absolute inset-0" 
+      <motion.div
+        className="absolute inset-0"
         style={{
           backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), 
                            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px',
+          backgroundSize: "50px 50px",
         }}
         animate={{
           backgroundPosition: ["0px 0px", "50px 50px"],
@@ -40,14 +40,14 @@ export default function Hero() {
       >
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ 
+          animate={{
             opacity: [0.3, 0.6, 0.3],
             scale: [1, 1.1, 1],
           }}
-          transition={{ 
+          transition={{
             duration: 8,
-            repeat: Infinity, 
-            ease: "easeInOut" 
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
           className="absolute inset-0 bg-gradient-to-r from-[#4C9EFF]/10 via-blue-700/10 to-[#4C9EFF]/10"
         />
@@ -128,7 +128,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-2"
             >
-              <motion.h1 
+              <motion.h1
                 className="text-6xl font-bold text-white"
                 animate={{
                   textShadow: [
@@ -145,7 +145,7 @@ export default function Hero() {
               >
                 Secure Your
               </motion.h1>
-              <motion.h1 
+              <motion.h1
                 className="text-6xl font-bold text-[#4C9EFF]"
                 animate={{
                   textShadow: [
@@ -211,7 +211,7 @@ export default function Hero() {
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
                     animate={{
-                      x: ['-100%', '100%'],
+                      x: ["-100%", "100%"],
                     }}
                     transition={{
                       duration: 2,
@@ -252,7 +252,7 @@ export default function Hero() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
               >
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 border border-[#4C9EFF]/20 rounded-full"
                   animate={{
                     scale: [1, 1.05, 1],
@@ -265,7 +265,7 @@ export default function Hero() {
                     ease: "easeInOut",
                   }}
                 />
-                <motion.div 
+                <motion.div
                   className="absolute inset-[15%] border border-[#4C9EFF]/20 rounded-full"
                   animate={{
                     scale: [1.05, 1, 1.05],
@@ -278,7 +278,7 @@ export default function Hero() {
                     ease: "easeInOut",
                   }}
                 />
-                <motion.div 
+                <motion.div
                   className="absolute inset-[30%] border border-[#4C9EFF]/20 rounded-full"
                   animate={{
                     scale: [1, 1.1, 1],
@@ -298,8 +298,8 @@ export default function Hero() {
                     key={i}
                     className="absolute w-1.5 h-1.5 bg-[#4C9EFF] rounded-full"
                     style={{
-                      top: '50%',
-                      left: '50%',
+                      top: "50%",
+                      left: "50%",
                       transform: `rotate(${i * 30}deg) translateX(160px)`,
                     }}
                     animate={{
@@ -318,7 +318,7 @@ export default function Hero() {
               </motion.div>
 
               {/* Center Circle */}
-              <motion.div 
+              <motion.div
                 className="absolute inset-[25%] rounded-full 
                   flex items-center justify-center overflow-hidden
                   bg-gradient-to-br from-[#4C9EFF] to-[#3178F6]"
@@ -344,7 +344,8 @@ export default function Hero() {
                   },
                 }}
                 style={{
-                  boxShadow: "0 0 50px rgba(76,158,255,0.3), inset 0 0 30px rgba(255,255,255,0.1)"
+                  boxShadow:
+                    "0 0 50px rgba(76,158,255,0.3), inset 0 0 30px rgba(255,255,255,0.1)",
                 }}
               >
                 {/* Animated Rings */}
@@ -396,10 +397,10 @@ export default function Hero() {
                 ))}
 
                 {/* Multiple Gradient Overlays */}
-                <motion.div
+                {/* <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
                   animate={{
-                    x: ['-200%', '200%'],
+                    x: ["-200%", "200%"],
                   }}
                   transition={{
                     duration: 3,
@@ -410,36 +411,36 @@ export default function Hero() {
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/10 to-white/0"
                   animate={{
-                    y: ['-200%', '200%'],
+                    y: ["-200%", "200%"],
                   }}
                   transition={{
                     duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                />
+                /> */}
 
                 {/* ARA Text with Letter Animation */}
                 <div className="relative z-10 flex items-center justify-center gap-1">
-                  {['A', 'R', 'A'].map((letter, i) => (
+                  {["A", "R", "A"].map((letter, i) => (
                     <motion.span
                       key={letter + i}
                       className="text-6xl font-bold text-white"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.8, 1, 0.8],
-                        textShadow: [
-                          "0 0 20px rgba(255,255,255,0.3)",
-                          "0 0 30px rgba(255,255,255,0.6)",
-                          "0 0 20px rgba(255,255,255,0.3)",
-                        ],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: i * 0.2,
-                      }}
+                      // animate={{
+                      //   scale: [1, 1.1, 1],
+                      //   opacity: [0.8, 1, 0.8],
+                      //   textShadow: [
+                      //     "0 0 20px rgba(255,255,255,0.3)",
+                      //     "0 0 30px rgba(255,255,255,0.6)",
+                      //     "0 0 20px rgba(255,255,255,0.3)",
+                      //   ],
+                      // }}
+                      // transition={{
+                      //   duration: 2,
+                      //   repeat: Infinity,
+                      //   ease: "easeInOut",
+                      //   delay: i * 0.2,
+                      // }}
                     >
                       {letter}
                     </motion.span>

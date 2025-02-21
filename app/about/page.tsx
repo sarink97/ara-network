@@ -81,9 +81,6 @@ export default function AboutUsPage() {
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              <span className="inline-block px-4 py-1.5 mb-6 rounded-full text-sm font-medium bg-white/10 text-white/80">
-                About Us
-              </span>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
                 Empowering
                 <span className="bg-gradient-to-r from-[#60A5FA] to-[#93C5FD] text-transparent bg-clip-text ml-4">

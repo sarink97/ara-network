@@ -1,47 +1,59 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import { MapPin, Phone, Mail, Linkedin } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { MapPin, Phone, Mail, Linkedin, Facebook } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const Footer = () => {  
+const Footer = () => {
   const footerLinks = {
     products: {
-      title: 'Products',
+      title: "Products",
       links: [
-        { text: 'JAGUAR5000', href: '/products/jaguar5000' },
-        { text: 'TS-Plus', href: '/products/ts-plus' },
-        { text: 'Partner Program', href: '/partner' },
+        { text: "JAGUAR5000", href: "/products/jaguar5000" },
+        { text: "TS-Plus", href: "/products/ts-plus" },
+        { text: "Partner Program", href: "/partner" },
       ],
     },
     company: {
-      title: 'Company',
+      title: "Company",
       links: [
-        { text: 'About Us', href: '/about' },
-        { text: 'Contact', href: '/contact' },
+        { text: "About Us", href: "/about" },
+        { text: "Contact", href: "/contact" },
       ],
     },
   };
 
   const contactInfo = [
-    { 
-      Icon: MapPin, 
-      text: ['BOJEON BLDG. 15F, 70-13, NONHYUN-DONG', 'GANGNAM-GU, SEOUL, KOREA 135-010'],
-      multiline: true 
+    {
+      Icon: MapPin,
+      text: [
+        "BOJEON BLDG. 15F, 70-13, NONHYUN-DONG",
+        "GANGNAM-GU, SEOUL, KOREA 135-010",
+      ],
+      multiline: true,
     },
-    { 
-      Icon: Phone, 
-      text: ['Tel.: +82 2 3446 6070', 'Fax: +82 2 3445 9099'],
-      multiline: true 
+    {
+      Icon: Phone,
+      text: ["Tel.: +82 2 3446 6070", "Fax: +82 2 3445 9099"],
+      multiline: true,
     },
-    { Icon: Mail, text: 'info@ara-networks.com' },
+    { Icon: Mail, text: "info@aranetworks.com" },
   ];
 
   const socialLinks = [
-    { Icon: Linkedin, href: 'https://www.linkedin.com/company/ara-networks', label: 'LinkedIn' },
+    {
+      Icon: Linkedin,
+      href: "https://www.linkedin.com/company/ara-networks/",
+      label: "LinkedIn",
+    },
+    {
+      Icon: Facebook,
+      href: "https://www.facebook.com/aranetworks.Co.Ltd/",
+      label: "Facebook",
+    },
   ];
 
   const containerVariants = {
@@ -63,13 +75,13 @@ const Footer = () => {
       transition: { duration: 0.5 },
     },
   };
-  
+
   const pathname = usePathname();
 
-  if (pathname.startsWith('/admin')) {
+  if (pathname.startsWith("/admin")) {
     return null;
   }
-  
+
   return (
     <footer className="bg-gradient-to-b from-[#0B1B33] to-[#0B1B33]/95 relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -78,102 +90,163 @@ const Footer = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-12 py-12">
           {/* Company Info */}
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             className="lg:col-span-4"
           >
-            <motion.div variants={itemVariants} className="space-y-8">
-              <Link href="/" className="block">
-                <Image 
-                  src="/logo_ow.webp" 
-                  alt="ARA Networks Logo" 
-                  width={140}
-                  height={56}
-                  className="h-14 w-auto"
+            <motion.div variants={itemVariants} className="space-y-6">
+              <Link href="/" className="block -ml-3">
+                <Image
+                  src="/footer-logo.webp"
+                  alt="ARA Networks Logo"
+                  width={300}
+                  height={120}
+                  className="h-9 w-auto"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed">
-                ARA Networks is a leading provider of network security and optimization solutions, 
-                delivering innovative technology to enhance network performance and security.
+                ARA Networks is a leading provider of network security and
+                optimization solutions, delivering innovative technology to
+                enhance network performance and security.
               </p>
-              {/* Social Links */}
-              {socialLinks.length > 0 && (
-                <div className="flex gap-4 pt-2">
-                  {socialLinks.map((social) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/60 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
-                      aria-label={social.label}
-                    >
-                      <social.Icon className="w-5 h-5 group-hover:text-[#4C9EFF] transition-colors duration-200" />
-                      <span className="text-sm font-medium">Follow us on LinkedIn</span>
-                    </a>
-                  ))}
-                </div>
-              )}
+              <div className="pt-2">
+                <Link
+                  href="https://www.linkedin.com/company/ara-networks"
+                  className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm"
+                >
+                  <Linkedin className="w-5 h-5" />
+                  Follow us on LinkedIn
+                </Link>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Navigation Links */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-8">
-            {Object.values(footerLinks).map((section) => (
-              <motion.div key={section.title} variants={itemVariants}>
+          {/* Products Column */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <motion.div variants={itemVariants}>
+              <div className="lg:col-span-2">
                 <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-                  {section.title}
+                  PRODUCTS
                 </h3>
-                <ul className="space-y-2">
-                  {section.links.map((link) => (
-                    <li key={link.text}>
-                      <Link 
-                        href={link.href}
-                        className="text-white/60 hover:text-white text-sm transition-colors duration-200"
-                      >
-                        {link.text}
-                      </Link>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/products/jaguar5000"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      JAGUAR5000
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/products/ts-plus"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      TS-Plus
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/partner"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      Partner Program
+                    </Link>
+                  </li>
                 </ul>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Company Column */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <motion.div variants={itemVariants}>
+              <div className="lg:col-span-2">
+                <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                  COMPANY
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link
+                      href="/about"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="text-white/60 hover:text-white transition-colors text-sm"
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
 
           {/* Contact Info */}
-          <motion.div variants={itemVariants} className="lg:col-span-3">
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Contact Us
-            </h3>
-            <ul className="space-y-4">
-              {contactInfo.map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <item.Icon className="w-4 h-4 text-[#4C9EFF] mt-1 flex-shrink-0" />
-                  <div className="text-white/60">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="lg:col-span-4"
+          >
+            <motion.div variants={itemVariants}>
+              <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                CONTACT US
+              </h3>
+              <ul className="space-y-4">
+                {contactInfo.map((item, index) => (
+                  <li key={index} className="flex gap-3">
+                    <item.Icon className="w-5 h-5 text-[#3785CC] flex-shrink-0 mt-1" />
                     {item.multiline ? (
-                      item.text.map((line, i) => (
-                        <div key={i} className="text-sm leading-relaxed">{line}</div>
-                      ))
+                      <div className="space-y-1">
+                        {Array.isArray(item.text) ? (
+                          item.text.map((line, i) => (
+                            <p key={i} className="text-white/60 text-sm">
+                              {line}
+                            </p>
+                          ))
+                        ) : (
+                          <p className="text-white/60 text-sm">{item.text}</p>
+                        )}
+                      </div>
                     ) : (
-                      <div className="text-sm">{item.text}</div>
+                      <p className="text-white/60 text-sm">{item.text}</p>
                     )}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </motion.div>
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/10">
-          <div className="py-6 text-center text-white/40 text-sm">
+        <div className="border-t border-white/10 py-6">
+          <p className="text-white/60 text-sm text-center">
             &copy; {new Date().getFullYear()} ARA Networks. All rights reserved.
-          </div>
+          </p>
         </div>
       </div>
     </footer>

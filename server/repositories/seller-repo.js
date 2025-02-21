@@ -3,7 +3,7 @@ import prisma from "../database.js";
 
 class SellerService {
   async create(data) {
-    const { name, country, email, address, company, phones } = data;
+    const { name, country, email, address, company, phones, region } = data; // Add region here
 
     return await prisma.seller.create({
       data: {
@@ -12,11 +12,12 @@ class SellerService {
         email,
         address,
         company,
+        region, // Include region in the create data
         phones: {
-          create: phones.map((phone) => ({ number: phone })), // ✅ Nested write for phones
+          create: phones.map((phone) => ({ number: phone })),
         },
       },
-      include: { phones: true }, // ✅ Include phone numbers in response
+      include: { phones: true },
     });
   }
 

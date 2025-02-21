@@ -17,20 +17,11 @@ export default function ContactHero() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-6 inline-block"
-          >
-            Contact Us
-          </motion.span>
-
-          <h1 className="text-4xl font-bold tracking-tight text-gray-400 sm:text-6xl px-2">
+          <h1 className="text-6xl mt-10 font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-16">
             Let&apos;s Connect and Create Something Amazing Together
           </h1>
 
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mt-6 text-lg leading-8 text-white/80">
             We&apos;re here to help you achieve your business goals. Get in
             touch with us today.
           </p>

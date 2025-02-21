@@ -7,12 +7,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
+import { Turnstile } from "@marsidev/react-turnstile";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { apiClient } from "@/lib/api";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
-
+import _ from "lodash";
+import type { TurnstileInstance } from "@marsidev/react-turnstile";
+import { env } from "node:process";
 const initialFormState = {
   name: "",
   email: "",
@@ -47,7 +51,8 @@ interface Seller {
   country: string;
   email?: string; // Optional, in case some sellers don't have emails
   address?: string; // Optional
-  company?: string; // Optional
+  company?: string;
+  region: string; // Optional
   phones: Phone[]; // Array of phone numbers
 }
 const PartnerPage = () => {
@@ -55,16 +60,35 @@ const PartnerPage = () => {
   const [country, setCountry] = useState("");
   const [formData, setFormData] = useState(initialFormState);
   const [open, setOpen] = useState(false);
+  const [sellersData, setSellersData] = useState<Seller[]>([]);
+  const [isVerified, setIsVerified] = useState(false);
   const [alert, setAlert] = useState<{
     type: "success" | "error" | "info";
     message: string;
   } | null>(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
+  // Add this function to check form validity
+  const checkFormValidity = () => {
+    const requiredFields = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      companyName: formData.companyName,
+      website: formData.website,
+    };
+
+    const isValid = Object.values(requiredFields).every(
+      (value) => value.trim() !== ""
+    );
+    setIsFormValid(isValid);
+  };
   const { data: sellers, isLoading } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
       try {
         const response = await apiClient.get("/seller/");
+        setSellersData(sellers);
         console.log("Fetched Sellers:", response.data);
         return response.data; // Make sure response.data is an array
       } catch (error) {
@@ -96,6 +120,9 @@ const PartnerPage = () => {
         [name]: value,
       }));
     }
+
+    // Check required fields after each change
+    checkFormValidity();
   };
 
   const { mutate, isError, error, isPending } = useMutation({
@@ -136,9 +163,17 @@ const PartnerPage = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (!isVerified) {
+      setAlert({
+        type: "error",
+        message: "Please complete the captcha verification first.",
+      });
+      return; // Stop form submission if captcha isn't verified
+    }
     try {
       mutate();
       console.log(formData);
+      setIsVerified(false);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -161,7 +196,7 @@ const PartnerPage = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg flex items-center space-x-2 z-50 ${
+            className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg flex items-center space-x-2 z-[9999] ${
               alert.type === "success"
                 ? "bg-green-500"
                 : alert.type === "error"
@@ -198,20 +233,12 @@ const PartnerPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/10 text-white/80 backdrop-blur-sm mb-6 inline-block"
-            >
-              Partners
-            </motion.span>
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-10">
+            <h1 className="text-6xl mt-10 font-bold bg-gradient-to-r from-white via-purple-100 to-white/80 bg-clip-text text-transparent mb-6 py-6 px-10">
               Join our global network of innovators and market leaders
             </h1>
             <p className="text-xl text-white/80 max-w-2xl mx-auto">
-              We're here to help you achieve your business goals. Get in touch
-              with us today.
+              We&apos;re here to help you achieve your business goals. Get in
+              touch with us today.
             </p>
           </motion.div>
         </div>
@@ -267,118 +294,125 @@ const PartnerPage = () => {
               </div>
             </motion.span>
           </div>
-          {/* <div className="bg-white rounded-lg shadow-lg p-8 mt-12 w-[700px] m-auto">
-            <h3 className="text-xl font-semibold mb-4">Search by Country</h3>
-            <div className="flex flex-col gap-4">
-              <input
-                type="text"
-                value={country}
-                onChange={(e) => {
-                  setCountry(e.target.value);
-                }}
-                placeholder="Search country..."
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors">
-                Find Resellers
-              </button>
-            </div>
-            <p className="mt-4 text-gray-600">
-              Don't see your country? Fill out our contact form and we'll
-              connect you with the nearest reseller.
-            </p>
-          </div> */}
+
           <hr className="my-2 mt-20" />
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center text-[50px] font-bold"
+            className="text-center text-[50px] font-bold text-blue-600"
           >
             Partners
           </motion.h1>
-          <div className="flex flex-wrap items-center justify-center w-[100vw] px-2 gap-4 mt-4">
+
+          <div className="flex flex-col items-center gap-16 mt-8">
             {isLoading && <p className="font-bold text-2xl">Loading...</p>}
+
             {sellers &&
-              sellers.map((seller: Seller, index: number) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200 max-h-[450px] min-h-[350px] w-[380px] justify-stretch hover:shadow-xl transition-shadow"
-                >
-                  {/* Seller Name */}
-                  <motion.h3
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
-                    className="text-xl font-semibold text-gray-900"
-                  >
-                    {seller.name}
-                  </motion.h3>
+              Object.entries(_.groupBy(sellers, "region")).map(
+                ([region, regionSellers]) => (
+                  <div key={region} className="w-full">
+                    <motion.h2
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-3xl font-bold text-center mb-8"
+                    >
+                      {region.replace("_", " ")}
+                    </motion.h2>
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                      {regionSellers.map((seller: Seller, index: number) => (
+                        <motion.div
+                          key={seller.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          whileHover={{ scale: 1.02 }}
+                          className="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-2 border border-gray-200 max-h-[450px] min-h-[350px] w-[380px] justify-stretch hover:shadow-xl transition-shadow"
+                        >
+                          {/* Seller Name */}
+                          <motion.h3
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.2 }}
+                            className="text-xl font-semibold text-gray-900"
+                          >
+                            {seller.name}
+                          </motion.h3>
 
-                  {/* Location & Email */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                    className="text-gray-600"
-                  >
-                    📍 {seller.country}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.4 }}
-                    className="text-gray-600"
-                  >
-                    📧 {seller.email || "No Email"}
-                  </motion.p>
+                          {/* Location & Email */}
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.3 }}
+                            className="text-gray-600"
+                          >
+                            📍 {seller.country}
+                          </motion.p>
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.4 }}
+                            className="text-gray-600"
+                          >
+                            📧{" "}
+                            {seller.email ? (
+                              <a
+                                href={`mailto:${seller.email}`}
+                                className="hover:text-blue-800 underline transition-colors text-blue-600"
+                              >
+                                {seller.email}
+                              </a>
+                            ) : (
+                              "No Email"
+                            )}
+                          </motion.p>
 
-                  {/* Company & Address */}
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.5 }}
-                    className="text-gray-600"
-                  >
-                    🏢 {seller.company || "N/A"}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.6 }}
-                    className="text-gray-500 text-sm"
-                  >
-                    {seller.address || "No Address Available"}
-                  </motion.p>
+                          {/* Company & Address */}
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.5 }}
+                            className="text-gray-600"
+                          >
+                            🏢 {seller.company || "N/A"}
+                          </motion.p>
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.6 }}
+                            className="text-gray-500 text-sm"
+                          >
+                            {seller.address || "No Address Available"}
+                          </motion.p>
 
-                  {/* Phone Numbers */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.1 + 0.7 }}
-                    className="mt-2"
-                  >
-                    <h4 className="text-gray-700 font-medium">
-                      📞 Phone Numbers:
-                    </h4>
-                    {seller.phones.length > 0 ? (
-                      <ul className="list-disc pl-5 text-gray-700">
-                        {seller.phones.map((phone) => (
-                          <li key={phone.id} className="text-gray-600">
-                            {phone.number}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-gray-500">No Phone Numbers</p>
-                    )}
-                  </motion.div>
-                </motion.div>
-              ))}
+                          {/* Phone Numbers */}
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.7 }}
+                            className="mt-2"
+                          >
+                            <h4 className="text-gray-700 font-medium">
+                              📞 Phone Numbers:
+                            </h4>
+                            {seller.phones.length > 0 ? (
+                              <ul className="list-disc pl-5 text-gray-700">
+                                {seller.phones.map((phone) => (
+                                  <li key={phone.id} className="text-gray-600">
+                                    {phone.number}
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="text-gray-500">No Phone Numbers</p>
+                            )}
+                          </motion.div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              )}
           </div>
           <div className="flex flex-col items-center justify-center mt-12">
             <h1 className="text-[50px] font-bold">
@@ -396,7 +430,7 @@ const PartnerPage = () => {
               }}
               className={` text-white px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 transition-colors mt-8 ml-[46%] `}
             >
-              Contact Us
+              Apply Now
             </DialogTrigger>
             <DialogContent className="bg-gray-900 text-white max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
               <DialogHeader className="border-b border-gray-700 px-6 py-4">
@@ -617,7 +651,7 @@ const PartnerPage = () => {
                           onChange={handleChange}
                         />
                         <label htmlFor="siem" className="ml-2">
-                          SIEM as a service (Cloud)
+                          JAGUAR5000
                         </label>
                       </div>
                       <div className="flex items-center">
@@ -630,20 +664,7 @@ const PartnerPage = () => {
                           onChange={handleChange}
                         />
                         <label htmlFor="managedSecurity" className="ml-2">
-                          Managed Security Services
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="logManagement"
-                          id="logManagement"
-                          className="w-4 h-4 rounded border-gray-700 bg-gray-800"
-                          checked={formData.interestedProducts.logManagement}
-                          onChange={handleChange}
-                        />
-                        <label htmlFor="logManagement" className="ml-2">
-                          CGNAT Log Management for Service Providers
+                          ARA-TS
                         </label>
                       </div>
                     </div>
@@ -665,17 +686,53 @@ const PartnerPage = () => {
 
               {/* Fixed Footer */}
               <div className="border-t border-gray-700 px-6 py-4">
+                <div className="flex justify-center mb-4">
+                  <Turnstile
+                    siteKey={
+                      process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY as string
+                    }
+                    onSuccess={(token: string) => {
+                      setIsVerified(true);
+                      console.log("Verification token:", token);
+                    }}
+                    onError={() => {
+                      setIsVerified(false);
+                      setAlert({
+                        type: "error",
+                        message:
+                          "Captcha verification failed. Please try again.",
+                      });
+                    }}
+                    onExpire={() => {
+                      setIsVerified(false);
+                      setAlert({
+                        type: "info",
+                        message: "Captcha expired. Please verify again.",
+                      });
+                    }}
+                  />
+                </div>
                 <button
-                  disabled={isPending}
+                  disabled={isPending || !isVerified || !isFormValid}
                   type="submit"
                   className={`w-full ${
-                    isPending ? "bg-blue-400" : "bg-blue-600"
+                    isPending || !isVerified || !isFormValid
+                      ? "bg-blue-400"
+                      : "bg-blue-600"
                   } text-white py-3 px-4 rounded ${
-                    isPending ? "" : "hover:bg-blue-700"
+                    isPending || !isVerified || !isFormValid
+                      ? "cursor-not-allowed"
+                      : "hover:bg-blue-700"
                   } transition-colors font-medium`}
                   onClick={handleSubmit}
                 >
-                  {isPending ? "submiting..." : "submit"}
+                  {isPending
+                    ? "submitting..."
+                    : !isVerified
+                    ? "Complete Captcha"
+                    : !isFormValid
+                    ? "Fill Required Fields"
+                    : "Submit"}
                 </button>
               </div>
             </DialogContent>

@@ -12,6 +12,8 @@ import { LoadingContext } from "./providers/LoadingProvider";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,28 +24,47 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = [
+  interface SubItem {
+    name: string;
+    description?: string;
+    href: string;
+  }
+
+  interface MenuItem {
+    name: string;
+    href: string;
+    subitems?: SubItem[];
+  }
+
+  interface MenuSection {
+    title: string;
+    items: MenuItem[];
+  }
+
+  const menuItems: MenuSection[] = [
     {
       title: "Our Solutions",
       items: [
         {
           name: "JAGUAR5000",
           href: "/products/jaguar5000",
-        },
-        {
-          name: "Operating System",
-          description: "Advanced Security OS",
-          href: "/products/jaguar5000/operating-system",
-        },
-        {
-          name: "Scalability",
-          description: "Enterprise Scaling Solutions",
-          href: "/products/jaguar5000/scalability",
-        },
-        {
-          name: "Technologies",
-          description: "Core Security Features",
-          href: "/products/jaguar5000/technologies",
+          subitems: [
+            {
+              name: "Operating System",
+              description: "Advanced Security OS",
+              href: "/products/jaguar5000/operating-system",
+            },
+            {
+              name: "Scalability",
+              description: "Enterprise Scaling Solutions",
+              href: "/products/jaguar5000/scalability",
+            },
+            {
+              name: "Technologies",
+              description: "Core Security Features",
+              href: "/products/jaguar5000/technologies",
+            },
+          ],
         },
         {
           name: "ARA-TS",
@@ -52,6 +73,30 @@ const Navbar = () => {
       ],
     },
   ];
+
+  const handleMouseEnter = (itemName: string) => {
+    if (itemName !== "ARA-TS") {
+      setActiveItem(itemName);
+    }
+  };
+
+  // const jaaguar5000 = [
+  //   {
+  //     name: "Operating System",
+  //     description: "Advanced Security OS",
+  //     href: "/products/jaguar5000/operating-system",
+  //   },
+  //   {
+  //     name: "Scalability",
+  //     description: "Enterprise Scaling Solutions",
+  //     href: "/products/jaguar5000/scalability",
+  //   },
+  //   {
+  //     name: "Technologies",
+  //     description: "Core Security Features",
+  //     href: "/products/jaguar5000/technologies",
+  //   },
+  // ];
 
   const pathname = usePathname();
 
@@ -64,7 +109,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full h-[12vh] z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-gray-900/80 backdrop-blur-lg border-b border-white/10"
           : "bg-transparent"
@@ -76,9 +121,9 @@ const Navbar = () => {
             <Image
               src="/logo_ow.webp"
               alt="IC&I Logo"
-              width={140}
-              height={56}
-              className="h-14 w-auto transition-all duration-300"
+              width={200}
+              height={100}
+              className="h-20 w-auto transition-all duration-300"
             />
           </Link>
 
@@ -92,61 +137,83 @@ const Navbar = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#181c52] group-hover:w-full transition-all duration-300"></span>
             </Link>
 
-            <div className="relative group">
+            <div
+              className="relative"
+              onMouseEnter={() => setIsMenuOpen(true)}
+              onMouseLeave={() => {
+                setIsMenuOpen(false);
+                setActiveItem(null);
+              }}
+            >
               <Link
-                href="/services"
+                href="/products"
                 className="flex items-center text-white/90 hover:text-white transition-colors"
               >
                 What We Offer
-                <ChevronDown className="ml-1 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300" />
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transform transition-transform duration-300 ${
+                    isMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
               </Link>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover:block w-[400px] p-1">
-                <div className="bg-gradient-to-b from-[#0B1B33]/95 to-[#0B1B33]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
-                  <div className="space-y-4">
-                    {menuItems[0].items.map((item, index) => (
-                      <div key={item.name}>
-                        {/* Add divider before ARA-TS */}
-                        {item.name === "ARA-TS" && (
-                          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
-                        )}
-                        
-                        <Link
-                          href={item.href}
-                          className={`group block text-white ${
-                            !item.description 
-                              ? 'hover:bg-white/5' 
-                              : 'hover:bg-white/5 pl-8 relative before:absolute before:left-3 before:top-1/2 before:-translate-y-1/2 before:w-3 before:h-px before:bg-white/20 before:group-hover:bg-[#4C9EFF]/50'
-                          } rounded-lg p-3 transition-all duration-300`}
+
+              {isMenuOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[400px] p-1">
+                  <div className="bg-gradient-to-b from-[#0B1B33]/95 to-[#0B1B33]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
+                    <div className="space-y-4">
+                      {menuItems[0].items.map((item: MenuItem) => (
+                        <div
+                          key={item.name}
+                          onMouseEnter={() => handleMouseEnter(item.name)}
+                          className="relative"
                         >
-                          <div className="flex items-start">
-                            <ChevronRight 
-                              className={`w-5 h-5 mr-2 mt-0.5 ${
-                                !item.description 
-                                  ? 'text-[#4C9EFF]' 
-                                  : 'text-[#4C9EFF]/50 group-hover:text-[#4C9EFF]'
-                              } transform group-hover:translate-x-1 transition-transform duration-300`} 
-                            />
-                            <div>
-                              <div className={
-                                !item.description 
-                                  ? "font-semibold text-lg text-[#4C9EFF] group-hover:text-[#4C9EFF] transition-colors" 
-                                  : "font-medium text-white/80 group-hover:text-white transition-colors"
-                              }>
+                          <Link
+                            href={item.href}
+                            className="group block text-white hover:bg-white/5 rounded-lg p-3 transition-all duration-300"
+                          >
+                            <div className="flex items-start">
+                              <ChevronRight className="w-5 h-5 mr-2 mt-0.5 text-[#4C9EFF] transform group-hover:translate-x-1 transition-transform duration-300" />
+                              <div className="font-semibold text-lg text-[#4C9EFF] group-hover:text-[#4C9EFF] transition-colors">
                                 {item.name}
                               </div>
-                              {item.description && (
-                                <div className="text-sm text-white/40 group-hover:text-white/60 mt-0.5 transition-colors">
-                                  {item.description}
-                                </div>
-                              )}
                             </div>
-                          </div>
-                        </Link>
-                      </div>
-                    ))}
+                          </Link>
+
+                          {item.subitems && activeItem === item.name && (
+                            <div className="pl-8 space-y-2">
+                              {item.subitems.map((subitem: SubItem) => (
+                                <Link
+                                  key={subitem.name}
+                                  href={subitem.href}
+                                  className="group block text-white hover:bg-white/5 pl-8 relative before:absolute before:left-3 before:top-1/2 before:-translate-y-1/2 before:w-3 before:h-px before:bg-white/20 before:group-hover:bg-[#4C9EFF]/50 rounded-lg p-3 transition-all duration-300"
+                                >
+                                  <div className="flex items-start">
+                                    <ChevronRight className="w-5 h-5 mr-2 mt-0.5 text-[#4C9EFF]/50 group-hover:text-[#4C9EFF] transform group-hover:translate-x-1 transition-transform duration-300" />
+                                    <div>
+                                      <div className="font-medium text-white/80 group-hover:text-white transition-colors">
+                                        {subitem.name}
+                                      </div>
+                                      {subitem.description && (
+                                        <div className="text-sm text-white/40 group-hover:text-white/60 mt-0.5 transition-colors">
+                                          {subitem.description}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+
+                          {item.name === "JAGUAR5000" && (
+                            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <Link

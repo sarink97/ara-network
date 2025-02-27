@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  name       String    @db.VarChar(255)
-  email      String    @unique @db.VarChar(191)
-  password   String    @db.VarChar(255)
-  role       Role      @default(USER)
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  email      String   @unique
+  password   String   @db.VarChar(255)
+  role       Role     @default(USER)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique @db.VarChar(191)
+  id   Int    @id @default(autoincrement())
+  name String @unique
 }
 
 model Message {
@@ -33,33 +33,28 @@ model Message {
   @@index([email])
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model Home {
-  id          Int    @id @default(autoincrement())
-  aboutUs     Json
-  advantages  Json
-  services    Json?    
+  id         Int   @id @default(autoincrement())
+  aboutUs    Json
+  advantages Json
+  services   Json?
 }
 
 model Categories {
-  id              Int       @id @default(autoincrement())
-  category        String    @unique @db.VarChar(191)  
-  title           String    @db.VarChar(255)
-  mainDescription String    @db.Text
-  overviewTitle   String    @db.VarChar(255)
-  overviewContent String    @db.Text
-  offeringsTitle  String    @db.VarChar(255)
-  offeringsContent String   @db.Text
-  services        Services[]
-} 
+  id               Int        @id @default(autoincrement())
+  category         String     @unique
+  title            String     @db.VarChar(255)
+  mainDescription  String     @db.Text
+  overviewTitle    String     @db.VarChar(255)
+  overviewContent  String     @db.Text
+  offeringsTitle   String     @db.VarChar(255)
+  offeringsContent String     @db.Text
+  services         Services[]
+}
 
 model Technology {
   id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(191)
+  name        String     @unique
   title       String     @db.VarChar(255)
   description String     @db.Text
   benefits    String?    @db.Text
@@ -67,17 +62,17 @@ model Technology {
 }
 
 model Services {
-  id              Int          @id @default(autoincrement())
-  title           String       @unique @db.VarChar(191)
-  description     String       @db.Text
-  servicelink     String       @unique @db.VarChar(191)
-  image           String?      @db.VarChar(255)
-  features        Feature[]    
-  category        Categories?  @relation(fields: [categoryId], references: [id])
-  categoryId      Int?
-  status          Boolean      @default(false)
-  technology      Technology?  @relation(fields: [technologyId], references: [id])
-  technologyId    Int?         
+  id           Int         @id @default(autoincrement())
+  title        String      @unique
+  description  String      @db.Text
+  servicelink  String      @unique
+  image        String?     @db.VarChar(255)
+  categoryId   Int?
+  status       Boolean     @default(false)
+  technologyId Int?
+  features     Feature[]
+  category     Categories? @relation(fields: [categoryId], references: [id])
+  technology   Technology? @relation(fields: [technologyId], references: [id])
 
   @@index([categoryId])
   @@index([technologyId])
@@ -87,49 +82,56 @@ model Feature {
   id          Int       @id @default(autoincrement())
   title       String    @db.VarChar(255)
   description String    @db.Text
-  service     Services? @relation(fields: [serviceId], references: [id])
   serviceId   Int?
+  service     Services? @relation(fields: [serviceId], references: [id])
 
   @@index([serviceId])
 }
 
 model Partner {
-  id                Int      @id @default(autoincrement())
-  name             String
-  email            String   @unique
-  phone            String
-  hearAboutUs      String
-  companyName      String
-  addressLine1     String
-  addressLine2     String?
-  city             String
-  state            String
-  postalCode       String
-  country          String
-  website          String?
+  id                 Int      @id @default(autoincrement())
+  name               String
+  email              String   @unique
+  phone              String
+  hearAboutUs        String
+  companyName        String
+  addressLine1       String
+  addressLine2       String?
+  city               String
+  state              String
+  postalCode         String
+  country            String
+  website            String?
   interestedProducts Json
-  message          String?
-  status           String   @default("PENDING")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  message            String?
+  status             String   @default("PENDING")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model Seller {
-  id        Int      @id @default(autoincrement())
-  name      String
-  country   String
-  email     String?
-  address   String?
-  region    Region 
-  company   String?
-  phones    Phone[]  @relation("SellerPhones")
+  id      Int     @id @default(autoincrement())
+  name    String
+  country String
+  email   String?
+  address String?
+  region  Region
+  company String?
+  phones  Phone[] @relation("SellerPhones")
 }
 
 model Phone {
-  id        Int    @id @default(autoincrement())
-  number    String
-  sellerId  Int
-  seller    Seller @relation(fields: [sellerId], references: [id], onDelete: Cascade, name: "SellerPhones")
+  id       Int    @id @default(autoincrement())
+  number   String
+  sellerId Int
+  seller   Seller @relation("SellerPhones", fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@index([sellerId], map: "Phone_sellerId_fkey")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum Region {

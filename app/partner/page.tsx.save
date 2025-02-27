@@ -1,4 +1,4 @@
-"use client";
+	"use client";
 import React, { useEffect, useState } from "react";
 import {
   Dialog,
@@ -87,8 +87,8 @@ const PartnerPage = () => {
     queryKey: ["sellers"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get("/sellers/");
-        setSellersData(response.data);
+        const response = await apiClient.get("/seller/");
+        setSellersData(sellers);
         console.log("Fetched Sellers:", response.data);
         return response.data; // Make sure response.data is an array
       } catch (error) {
@@ -395,7 +395,7 @@ const PartnerPage = () => {
                             <h4 className="text-gray-700 font-medium">
                               📞 Phone Numbers:
                             </h4>
-                            {seller.phones?.length > 0 ? (
+                            {seller.phones.length > 0 ? (
                               <ul className="list-disc pl-5 text-gray-700">
                                 {seller.phones.map((phone) => (
                                   <li key={phone.id} className="text-gray-600">

@@ -101,14 +101,48 @@ CREATE TABLE `Feature` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `About` (
+CREATE TABLE `Partner` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `title` VARCHAR(255) NOT NULL,
-    `subtitle` VARCHAR(255) NOT NULL,
-    `description` TEXT NOT NULL,
-    `mission` TEXT NOT NULL,
-    `vision` TEXT NOT NULL,
-    `img` VARCHAR(255) NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `phone` VARCHAR(191) NOT NULL,
+    `hearAboutUs` VARCHAR(191) NOT NULL,
+    `companyName` VARCHAR(191) NOT NULL,
+    `addressLine1` VARCHAR(191) NOT NULL,
+    `addressLine2` VARCHAR(191) NULL,
+    `city` VARCHAR(191) NOT NULL,
+    `state` VARCHAR(191) NOT NULL,
+    `postalCode` VARCHAR(191) NOT NULL,
+    `country` VARCHAR(191) NOT NULL,
+    `website` VARCHAR(191) NULL,
+    `interestedProducts` JSON NOT NULL,
+    `message` VARCHAR(191) NULL,
+    `status` VARCHAR(191) NOT NULL DEFAULT 'PENDING',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `Partner_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Seller` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `country` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NULL,
+    `address` VARCHAR(191) NULL,
+    `region` ENUM('NORTH_AMERICA', 'SOUTH_AMERICA', 'EUROPE', 'MIDDLE_EAST', 'AFRICA', 'ASIA', 'CARIBBEAN') NOT NULL,
+    `company` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Phone` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `number` VARCHAR(191) NOT NULL,
+    `sellerId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -121,3 +155,6 @@ ALTER TABLE `Services` ADD CONSTRAINT `Services_technologyId_fkey` FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE `Feature` ADD CONSTRAINT `Feature_serviceId_fkey` FOREIGN KEY (`serviceId`) REFERENCES `Services`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Phone` ADD CONSTRAINT `Phone_sellerId_fkey` FOREIGN KEY (`sellerId`) REFERENCES `Seller`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://162.244.30.39:3001/api/:path*", // ✅ Fix Backend API URL
+        destination: "http://3.29.131.14:3001/api/:path*", // ✅ Fix Backend API URL
       },
     ];
   },

@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // ✅ CORS configuration
 const allowedOrigins = [
-  "http://162.244.30.39:3000",
-  "http://162.244.30.39:3001",
+  "http://3.29.131.14:3000",
+  "http://3.29.131.14:3001",
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
